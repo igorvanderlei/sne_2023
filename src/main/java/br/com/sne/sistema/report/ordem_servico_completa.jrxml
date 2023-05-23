@@ -1,0 +1,1535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ordemServico2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" isFloatColumnFooter="true" uuid="f5bb4715-22b7-4a3a-b922-9031324cbcdc">
+	<property name="ireport.zoom" value="1.0000000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="237"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#8FCCCC">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFE6E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#9D9DAE">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#E6E6FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#F8F8FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="RecursosSolicitados" uuid="6df3bf5c-689b-4ba3-b0b8-3b26d049eddf">
+		<parameter name="id_orcamento" class="java.lang.Long"/>
+		<parameter name="id_ambiente" class="java.lang.Long"/>
+		<queryString>
+			<![CDATA[SELECT
+    	recursosolicitado.descricao as nome, recursosolicitado.precoUnitario as precounitario, quantidade, diarias, subtotal, totalll.t as total, grupo, grupo.nome as nome_grupo,
+	grupo.tiporecurso as tipoRecurso,
+	amb.nome as amb_nome, amb.dataInicio as amb_dti, amb.dataFim as amb_dtf
+FROM
+	recursosolicitado, grupo, recurso, ambienteevento as amb ,
+		(SELECT sum(subtotal) as t from recursosolicitado
+			WHERE idOrdemServico = $P{id_orcamento} and ambiente = $P{id_ambiente}
+		) as totalll
+WHERE
+	recursosolicitado.recurso = recurso.id and recursosolicitado.idOrdemServico = $P{id_orcamento}
+	and ambiente = $P{id_ambiente} and recursosolicitado.ambiente = amb.id
+        and recurso.grupo = grupo.id
+ORDER BY grupo.tiporecurso asc, grupo.id asc, recursosolicitado.id asc]]>
+		</queryString>
+		<field name="nome" class="java.lang.String"/>
+		<field name="precounitario" class="java.lang.Float"/>
+		<field name="quantidade" class="java.lang.Integer"/>
+		<field name="diarias" class="java.lang.Integer"/>
+		<field name="subtotal" class="java.lang.Float"/>
+		<field name="total" class="java.lang.Float"/>
+		<field name="amb_nome" class="java.lang.String"/>
+		<field name="amb_dti" class="java.util.Date"/>
+		<field name="amb_dtf" class="java.util.Date"/>
+		<field name="grupo" class="java.lang.Integer"/>
+		<field name="nome_grupo" class="java.lang.String"/>
+		<field name="tipoRecurso" class="java.lang.Long"/>
+		<variable name="total" class="java.lang.Float" resetType="None" calculation="Sum">
+			<variableExpression><![CDATA[$F{diarias}]]></variableExpression>
+		</variable>
+		<group name="group1">
+			<groupExpression><![CDATA[$F{grupo}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="RecursosTerceirizados" uuid="9483afaf-b872-4422-80cc-62516aa1127e">
+		<parameter name="id_orcamento" class="java.lang.Long"/>
+		<parameter name="id_ambiente" class="java.lang.Long"/>
+		<parameter name="totalForn" class="java.lang.Float"/>
+		<queryString>
+			<![CDATA[SELECT
+  recursoterceirizadosolicitado.descricao as nome,
+  recursoterceirizadosolicitado.quantidade as quantidade,
+
+  recursoterceirizadosolicitado.precoEmpresa as precoEmpresa,
+  CASE when recursoterceirizado.calculardiarias THEN (recursoterceirizadosolicitado.precoEmpresa * diarias * quantidade )
+       ELSE (recursoterceirizadosolicitado.precoEmpresa * quantidade)
+  END as subtotalEmpresa,
+
+  recursoterceirizado.precoFornecedor as precoFornecedor,
+  CASE when recursoterceirizado.calculardiarias THEN (recursoterceirizadosolicitado.precoFornecedor * diarias * quantidade )
+       ELSE (recursoterceirizadosolicitado.precoFornecedor * quantidade )
+  END as subtotalFornecedor,
+
+  diarias,
+
+  recursoterceirizado.calculardiarias as calcularD,
+
+  totalEmpresa,
+  totalFornecedor,
+  grupo,
+  grupo.nome as nome_grupo,
+  amb.nome as amb_nome,
+  amb.dataInicio as amb_dti,
+  amb.dataFim as amb_dtf
+
+FROM
+	recursoterceirizadosolicitado, grupo, recursoterceirizado, ambienteevento as amb ,
+	(SELECT sum(subtotalempresa) as totalEmpresa, sum(subtotalfornecedor) as totalFornecedor
+		FROM ( SELECT
+			CASE when recursoterceirizado.calculardiarias = true THEN (recursoterceirizadosolicitado.precoEmpresa * diarias * quantidade )
+			ELSE (recursoterceirizadosolicitado.precoEmpresa * quantidade)
+			END as subtotalEmpresa,
+
+			CASE when recursoterceirizado.calculardiarias = true THEN (recursoterceirizadosolicitado.precoFornecedor * diarias * quantidade )
+			ELSE (recursoterceirizadosolicitado.precoFornecedor * quantidade )
+			END as subtotalFornecedor
+
+			FROM recursoterceirizadosolicitado, recursoterceirizado
+
+			WHERE
+				recursoterceirizadosolicitado.recurso = recursoterceirizado.id
+				and recursoterceirizadosolicitado.idOrdemServico = $P{id_orcamento}
+				and ambiente =  $P{id_ambiente}
+		    ) as total
+	) as totalll
+
+WHERE
+	recursoterceirizadosolicitado.recurso = recursoterceirizado.id
+	and recursoterceirizadosolicitado.idOrdemServico = $P{id_orcamento}
+	and ambiente =  $P{id_ambiente}
+	and recursoterceirizadosolicitado.ambiente = amb.id
+        and recursoterceirizado.grupo = grupo.id
+ORDER BY grupo.id asc,recursoterceirizadosolicitado.id asc]]>
+		</queryString>
+		<field name="nome" class="java.lang.String"/>
+		<field name="precoFornecedor" class="java.lang.Float"/>
+		<field name="diarias" class="java.lang.Integer"/>
+		<field name="subtotalFornecedor" class="java.lang.Float"/>
+		<field name="subtotalEmpresa" class="java.lang.Float"/>
+		<field name="amb_nome" class="java.lang.String"/>
+		<field name="amb_dti" class="java.util.Date"/>
+		<field name="amb_dtf" class="java.util.Date"/>
+		<field name="grupo" class="java.lang.Integer"/>
+		<field name="nome_grupo" class="java.lang.String"/>
+		<field name="quantidade" class="java.lang.Integer"/>
+		<field name="totalEmpresa" class="java.lang.Float"/>
+		<field name="totalFornecedor" class="java.lang.Float"/>
+		<field name="calcularD" class="java.lang.Boolean"/>
+		<field name="precoEmpresa" class="java.lang.Float"/>
+		<variable name="totalTerceirizados" class="java.lang.Float" calculation="Sum">
+			<variableExpression><![CDATA[$F{diarias}]]></variableExpression>
+		</variable>
+		<group name="group1">
+			<groupExpression><![CDATA[$F{grupo}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\workspace\\projeto2\\br\\com\\nordesti\\locav\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="imagem" class="java.lang.Object"/>
+	<parameter name="cidade" class="java.lang.String"/>
+	<parameter name="logos" class="java.lang.Object"/>
+	<queryString>
+		<![CDATA[SELECT
+	o.precoterceirizado as orcTer, o.subtotalTerceirizadoEmpresa as totalEmp,
+	o.terceirizadoempresa as terEmp, o.id as idOS, o.dataInicio as dataInicioOS, o.dataFim as dataFimOS, o.nomeEvento,  o.observacoes
+	as observacoesOS, f.id as id_funcionario, f.nome as nome_funcionario, c.id as id_cliente,  c.nome
+	as nome_cliente,le.nome , end_le.logradouro as local_logradouro, end_le.numero as local_numero,
+	end_le.complemento as local_complemento, end_le.bairro as local_bairro, end_le.cidade as local_cidade,
+	end_le.cep as local_cep, end_le.estado as local_estado, end_le.pontoreferencia as
+	loca_ponto_referencia, o.datamontagem, o.horainicio, o.horafim, o.horamontagem, c.fone, c.email,
+	o.observacoesCliente as observacoes, o.condicoesPagamento as condicoes, f.celular as
+	celular_funcionario, amb.nomeambiente as nome_ambiente, amb.idambiente as id_ambiente,
+	o.desconto as desconto, o.preco as preco, (preco - desconto) as preco_final, o.nomeProposta
+	as nome_proposta, o.telefoneproposta as telefone_proposta, o.cargoproposta as cargo_proposta,
+	o.contatoEvento as nome_contato, o.telefoneContatoEvento as telefone_contato,
+	le.observacoes as observacoes_local, o.detalhesevento, o.terceirizadofornecedor as terFor,
+	o.observacoesfinanceiras,o.subtotalTerceirizadoForn as tFornecedor
+FROM
+	ordemservico o
+		left join funcionario f on (f.id = o.funcionario)
+		left join cliente c on (c.id = o.cliente)
+		left join localevento le on (le.id = o.local)
+		left join endereco end_le on ( end_le.id = le.endereco)
+		inner join (
+			SELECT
+				ambienteevento.id as idambiente, ambienteevento.nome as nomeambiente ,
+				count(recursosolicitado.id) as qtd, ambienteevento.idordemservico as idos
+			FROM
+				ambienteevento
+				INNER JOIN recursosolicitado ON recursosolicitado.ambiente = ambienteevento.id
+			WHERE
+				ambienteevento.idordemservico is not null
+			GROUP BY
+				ambienteevento.id, ambienteevento.nome, ambienteevento.idordemservico
+		) amb on amb.idos = o.id
+WHERE
+	o.id = $P{id}
+GROUP BY
+	nome_ambiente, o.id, o.dataInicio, o.dataFim, o.nomeEvento,  o.observacoes, f.id, f.nome, c.id,
+	c.nome, le.nome , end_le.logradouro, end_le.numero, end_le.complemento, end_le.bairro, end_le.cidade,
+	end_le.cep , end_le.estado , end_le.pontoreferencia, o.datamontagem, o.horainicio, o.horafim,
+	o.horamontagem, c.fone, c.email, o.observacoesCliente , o.condicoesPagamento, f.celular,
+	amb.idambiente, o.desconto, o.preco, preco_final, o.nomeProposta, o.telefoneproposta,
+	o.cargoproposta, o.contatoEvento, o.telefoneContatoEvento, le.observacoes,  o.detalhesevento
+ORDER BY
+	amb.idambiente]]>
+	</queryString>
+	<field name="idos" class="java.lang.Long"/>
+	<field name="datainicioos" class="java.sql.Date"/>
+	<field name="datafimos" class="java.sql.Date"/>
+	<field name="nomeevento" class="java.lang.String"/>
+	<field name="observacoesfinanceiras" class="java.lang.String"/>
+	<field name="observacoesos" class="java.lang.String"/>
+	<field name="id_funcionario" class="java.lang.Long"/>
+	<field name="nome_funcionario" class="java.lang.String"/>
+	<field name="id_cliente" class="java.lang.Long"/>
+	<field name="nome_cliente" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="local_logradouro" class="java.lang.String"/>
+	<field name="local_numero" class="java.lang.String"/>
+	<field name="local_complemento" class="java.lang.String"/>
+	<field name="local_bairro" class="java.lang.String"/>
+	<field name="local_cidade" class="java.lang.String"/>
+	<field name="local_cep" class="java.lang.String"/>
+	<field name="local_estado" class="java.lang.String"/>
+	<field name="loca_ponto_referencia" class="java.lang.String"/>
+	<field name="datamontagem" class="java.sql.Date"/>
+	<field name="horainicio" class="java.sql.Time"/>
+	<field name="horafim" class="java.sql.Time"/>
+	<field name="horamontagem" class="java.sql.Time"/>
+	<field name="fone" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="observacoes" class="java.lang.String"/>
+	<field name="condicoes" class="java.lang.String"/>
+	<field name="celular_funcionario" class="java.lang.String"/>
+	<field name="nome_ambiente" class="java.lang.String"/>
+	<field name="id_ambiente" class="java.lang.Long"/>
+	<field name="desconto" class="java.math.BigDecimal"/>
+	<field name="preco" class="java.math.BigDecimal"/>
+	<field name="tFornecedor" class="java.math.BigDecimal"/>
+	<field name="preco_final" class="java.math.BigDecimal"/>
+	<field name="nome_proposta" class="java.lang.String"/>
+	<field name="telefone_proposta" class="java.lang.String"/>
+	<field name="cargo_proposta" class="java.lang.String"/>
+	<field name="nome_contato" class="java.lang.String"/>
+	<field name="telefone_contato" class="java.lang.String"/>
+	<field name="observacoes_local" class="java.lang.String"/>
+	<field name="detalhesevento" class="java.lang.String"/>
+	<field name="terEmp" class="java.lang.Boolean"/>
+	<field name="terFor" class="java.lang.Boolean"/>
+	<field name="orcTer" class="java.math.BigDecimal"/>
+	<field name="totalEmp" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="580" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="100" width="554" height="20" uuid="f24bc780-5698-4e1f-9efb-048c8a849360"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ordem de Servico N° " +$F{idos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="131" width="52" height="15" uuid="1392740e-2039-4c55-a303-d922bf5a7c07"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="212" width="64" height="15" uuid="391aed78-900d-46fe-b73e-e8affb8a5436"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vendedor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="62" y="212" width="491" height="15" uuid="2e283c50-19d1-48f9-aba7-92265f757804"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_funcionario}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="52" y="131" width="503" height="15" uuid="7089a78e-1c95-43be-ac19-7fd50252fcf5"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Sr(a) "+$F{nome_cliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="228" width="100" height="15" uuid="6d3ac504-34dd-48a4-823d-3378994d58e8"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome do Evento:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="228" width="453" height="15" uuid="e2bb2ba6-6469-4573-ae4c-768243fdd84a"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeevento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="370" y="305" width="180" height="15" uuid="afcb436d-242c-434f-ab59-6f8ecea2aad8"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{local_numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="42" y="322" width="276" height="15" uuid="93f40fe6-692d-4a2f-87df-125640278486"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{local_cidade}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="327" y="321" width="45" height="15" uuid="ceff4eba-c42e-4c00-ba28-1815bda97c59"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="73" y="306" width="244" height="15" uuid="8884027a-8f8e-413b-a881-c352b45b4822"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{local_logradouro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="113" y="370" width="438" height="15" uuid="915ae940-61ad-46ba-b8db-a34d2bdc45b3"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{loca_ponto_referencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="83" y="354" width="468" height="15" uuid="ea7dc2ac-2eb2-4704-ab00-8960b4cfe81f"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{local_complemento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="1" y="370" width="112" height="15" uuid="f5e6d8c0-b53d-4969-90c3-20e7ee76250d"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ponto de Referência:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="1" y="322" width="41" height="15" uuid="16ca7b3f-0344-4be5-9d2c-0cdf9debe645"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cidade:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="1" y="338" width="41" height="15" uuid="0111eed6-ae4e-45b1-b3f1-08407154c14d"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bairro:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="1" y="354" width="82" height="15" uuid="63f33aaf-1ced-4e67-8fba-8f0ae0149b21"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Complemento:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="366" y="321" width="184" height="15" uuid="5906d93d-c83b-4caa-9272-4aa490613cac"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{local_estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="42" y="338" width="275" height="15" uuid="ed075126-0fe7-48cb-8742-8cfb26817f45"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{local_bairro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="327" y="337" width="26" height="15" uuid="ac8fac67-1750-4fbb-b9bd-defe9b4c3d44"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEP:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="353" y="337" width="197" height="15" uuid="f879a9d1-cdfa-4e7d-974e-23173ecc7473"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{local_cep}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="1" y="306" width="72" height="15" uuid="99cd5aca-8df6-4604-a6c4-d831cd7d5be3"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Logradouro:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="327" y="305" width="45" height="15" uuid="13d78b1e-e026-46e7-822c-fc2126bb15bf"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número:]]></text>
+			</staticText>
+			<textField pattern="d/M/yyyy" isBlankWhenNull="true">
+				<reportElement x="63" y="245" width="50" height="15" uuid="bdb9802c-03db-4ac1-9bf0-7ef51fef278e"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datainicioos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="219" y="245" width="54" height="15" uuid="a4ddf4fb-9b3f-41d9-9bff-c7556e7b84e9"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Fim:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="113" y="245" width="22" height="15" uuid="e1468e5f-78cf-49a3-a7e3-442352a06b67"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[às]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="262" width="83" height="15" uuid="d0dba45a-ed24-4d10-ba48-9a26f9749d60"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Montagem:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="262" width="22" height="15" uuid="32c3f0b0-68da-4e6e-88bc-cf970e986d15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[às]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="134" y="245" width="67" height="15" uuid="29097220-9424-4276-8e40-ad8b15478b60"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horainicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="154" y="262" width="100" height="15" uuid="2e23627b-dede-4c92-b8eb-eda66eb021e0"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horamontagem}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="322" y="245" width="22" height="15" uuid="a71a1788-b1d4-43f4-a12c-19dc473b7f8e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[às]]></text>
+			</staticText>
+			<textField pattern="d/M/yyyy" isBlankWhenNull="true">
+				<reportElement x="272" y="245" width="50" height="15" uuid="a7cb6de3-e9b0-4274-b7d5-c2075a197fc5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datafimos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="d/M/yyyy" isBlankWhenNull="true">
+				<reportElement x="82" y="262" width="50" height="15" uuid="39c1a723-423d-4ea3-9173-3467975becdb"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datamontagem}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="245" width="64" height="15" uuid="251923e3-83ca-45b8-b6a7-9c703ba76f80"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Início:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement x="343" y="245" width="100" height="15" uuid="13bb9d95-8953-47d5-a988-c50d62d481e9"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horafim}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="443" y="80" width="108" height="20" uuid="632776d8-9e15-42d3-bb37-480e34a0c114"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="372" y="80" width="71" height="20" uuid="62515a4c-6cd2-4c16-8b21-5f2cc819220b"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cidade}+", "]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="52" y="149" width="221" height="15" isRemoveLineWhenBlank="true" uuid="095c8f46-6d18-46f2-9263-4a02443c49d0"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fone}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="324" y="149" width="231" height="15" uuid="65b2e56f-d95a-4e05-ae8f-12234eaf5d14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="149" width="52" height="15" uuid="fe4ed5aa-26d1-4fa0-a5c1-48c53b138031"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fone:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="149" width="41" height="15" uuid="b07d8157-e1bd-4086-82dc-0ee90350627e"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="555" height="77" uuid="52833f8b-e4e2-438f-a17f-0cf9c91b5d9e"/>
+				<imageExpression><![CDATA[$P{imagem}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="430" width="555" height="15" backcolor="#CCCCCC" uuid="60effcea-4d68-4f41-b9cf-31ec3f470522"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detalhes do Evento]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement x="0" y="451" width="555" height="18" uuid="a10c8e83-ef70-4eea-bfff-2ddd090c60be"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalhesevento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="167" width="52" height="15" uuid="fdbf69de-7e95-4035-8519-c1dca36fbae2"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contato:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="324" y="167" width="231" height="15" uuid="281cb641-cc31-4d7a-849a-dc44afd8f4e5"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefone_contato}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="52" y="167" width="221" height="15" isRemoveLineWhenBlank="true" uuid="0b1c2076-4d58-460b-9b3d-81348652529f"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_contato}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="283" y="167" width="41" height="15" uuid="fddc042a-c725-40ad-ada2-02e91aead57d"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fone:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="390" width="555" height="15" backcolor="#CCCCCC" uuid="740909ce-bb3b-43fb-b4d6-6fb8747c69d4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observações]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="281" width="555" height="20" backcolor="#CCCCCC" uuid="9000841c-41ab-4160-8b9d-0619a1aafef8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Local do Evento: " +$F{nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="187" width="552" height="20" backcolor="#CCCCCC" uuid="6bd62b7b-ef42-48ae-80fb-4dcf8bba88fe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ref. Locação de Equipamentos]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement x="1" y="408" width="553" height="18" uuid="3a825bf9-380f-44fb-aef8-99f7423955fa"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observacoes}]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="530" width="100" height="1" uuid="94513d82-8335-41eb-bcd1-8ea703682b20"/>
+			</break>
+			<staticText>
+				<reportElement x="1" y="540" width="553" height="30" uuid="1b0c6058-6cc7-4238-a683-152380682dc8"/>
+				<text><![CDATA[Agradecemos antecipadamente a preferência pelos serviços da SNE. Conforme solicitado, apresentamos a proposta para locação dos equipamentos discriminados abaixo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="478" width="555" height="15" backcolor="#CCCCCC" uuid="897d3d4f-4283-416b-a25c-375e3a717e33"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observações Financeiras]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" pattern="" isBlankWhenNull="true">
+				<reportElement x="1" y="496" width="553" height="18" uuid="4a3d6314-2a52-465e-8ea5-d3026cdd7c87"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observacoesfinanceiras}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table 3" style="table 2_TH" stretchType="RelativeToBandHeight" x="0" y="4" width="555" height="18" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="3a8e9d32-b837-4bfa-9e51-709fda4303e1"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="RecursosTerceirizados" uuid="768b75e0-8ddd-4503-b1ed-ab5a47aecf10">
+						<datasetParameter name="id_orcamento">
+							<datasetParameterExpression><![CDATA[$F{idos}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="id_ambiente">
+							<datasetParameterExpression><![CDATA[$F{id_ambiente}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="554" uuid="d22726d7-0fe4-42f9-a15e-f0f3ce24fdfe">
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="15" width="554" height="15" isPrintInFirstWholeBand="true" backcolor="#EEEEEE" uuid="e4bd370b-84ec-48b9-9f1e-151154c28b15"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[    QUANT     DESCRIÇÃO                                                                             DIAS             UNIT                      TOTAL              ]]></text>
+							</staticText>
+							<textField>
+								<reportElement mode="Opaque" x="0" y="0" width="554" height="15" forecolor="#FFFFFF" backcolor="#000000" uuid="55bbbc6f-40be-4e40-89a5-59d3955a6f45"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{amb_nome} + " - PERÍODO: " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{amb_dti}) + " à " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{amb_dtf})]]></textFieldExpression>
+							</textField>
+						</jr:columnHeader>
+						<jr:column width="60" uuid="457ed8dc-a8ce-4ac5-bf43-d94a3be0e531">
+							<jr:tableFooter height="20" rowSpan="1"/>
+							<jr:groupHeader groupName="group1">
+								<jr:cell height="16" rowSpan="1">
+									<staticText>
+										<reportElement mode="Opaque" x="0" y="0" width="60" height="16" backcolor="#EEEEEE" uuid="faf69aa8-c5c5-4ea2-8cfc-89579ceb5252"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial" isBold="true"/>
+										</textElement>
+										<text><![CDATA[]]></text>
+									</staticText>
+								</jr:cell>
+							</jr:groupHeader>
+							<jr:detailCell height="17" rowSpan="1">
+								<textField pattern="###0">
+									<reportElement x="0" y="0" width="60" height="17" uuid="8790a146-6457-49d8-8b77-a612abd3d188"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:columnGroup width="386" uuid="851fc268-c163-4b58-a3da-264c055ed566">
+							<jr:tableFooter height="20" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="386" height="20" uuid="81c074f5-b648-4519-977e-8870479246ff"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font fontName="Arial" isBold="true"/>
+									</textElement>
+									<text><![CDATA[TERCEIROS - PELA SNE:  ]]></text>
+								</staticText>
+							</jr:tableFooter>
+							<jr:column width="258" uuid="b22ef928-fec4-42fb-8820-e35d23ef93ed">
+								<jr:groupHeader groupName="group1">
+									<jr:cell height="16" rowSpan="1">
+										<textField>
+											<reportElement mode="Opaque" x="0" y="0" width="258" height="16" backcolor="#EEEEEE" uuid="1614774c-32e0-4b55-b4d0-7d92668bf07d"/>
+											<textElement verticalAlignment="Middle">
+												<font fontName="Arial" isBold="true"/>
+											</textElement>
+											<textFieldExpression><![CDATA[$F{nome_grupo}]]></textFieldExpression>
+										</textField>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell height="17" rowSpan="1">
+									<textField textAdjust="StretchHeight">
+										<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="258" height="17" uuid="e2ff8551-f7f6-4eb0-8da1-7792192431a5"/>
+										<textElement verticalAlignment="Middle">
+											<font fontName="Arial"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="52" uuid="fd2b3a81-445e-4fd2-9892-e8a5cd1509bd">
+								<jr:groupHeader groupName="group1">
+									<jr:cell height="16" rowSpan="1">
+										<staticText>
+											<reportElement mode="Opaque" x="0" y="0" width="52" height="16" backcolor="#EEEEEE" uuid="8b609d70-1445-4229-a09e-5b8018b074dc"/>
+											<text><![CDATA[]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell height="17" rowSpan="1">
+									<textField pattern="">
+										<reportElement x="0" y="0" width="52" height="17" uuid="4432f407-fff0-404c-b589-3049af12fc7b"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{diarias}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="76" uuid="4b0c6ae3-f909-47db-82e4-df97d676e1f9">
+								<jr:groupHeader groupName="group1">
+									<jr:cell height="16" rowSpan="1">
+										<staticText>
+											<reportElement mode="Opaque" x="0" y="0" width="76" height="16" isPrintInFirstWholeBand="true" backcolor="#EEEEEE" uuid="cbf6f66f-6afc-481c-ab4d-5712f89eb4f9"/>
+											<textElement textAlignment="Center" verticalAlignment="Middle">
+												<font fontName="Arial" isBold="true"/>
+											</textElement>
+											<text><![CDATA[]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell height="17" rowSpan="1">
+									<textField pattern="¤ #,##0.00">
+										<reportElement x="0" y="0" width="76" height="17" uuid="893f1ebf-027a-4a9c-aeaa-c1bdf3475ef8"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{precoEmpresa}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+						</jr:columnGroup>
+						<jr:column width="108" uuid="ec40b989-88e6-47a4-9ce8-5ff6e600864d">
+							<jr:tableFooter height="20" rowSpan="1">
+								<textField evaluationTime="Report" pattern="¤ #,##0.00">
+									<reportElement x="0" y="0" width="108" height="20" uuid="e60fd84d-860c-401b-bb16-5694fae9fe3c"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{totalEmpresa}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:groupHeader groupName="group1">
+								<jr:cell height="16" rowSpan="1">
+									<staticText>
+										<reportElement mode="Opaque" x="0" y="0" width="108" height="16" isPrintInFirstWholeBand="true" backcolor="#EEEEEE" uuid="bae2c3aa-83c4-4a07-9ff7-29f7d1b67759"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial" isBold="true"/>
+										</textElement>
+										<text><![CDATA[]]></text>
+									</staticText>
+								</jr:cell>
+							</jr:groupHeader>
+							<jr:detailCell height="17" rowSpan="1">
+								<textField pattern="¤ #,##0.00">
+									<reportElement x="0" y="0" width="108" height="17" uuid="7a3d587b-4940-4749-9bbc-921980d25aff"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{subtotalEmpresa}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="24">
+			<componentElement>
+				<reportElement key="table 1" stretchType="RelativeToBandHeight" x="0" y="3" width="555" height="18" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="ca5a68cf-fe56-4107-bc2d-fd087f0c3ccd">
+					<printWhenExpression><![CDATA[!$F{terEmp}]]></printWhenExpression>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="RecursosTerceirizados" uuid="35d8f0e6-1d66-4561-9971-0d7a03c754e3">
+						<datasetParameter name="id_orcamento">
+							<datasetParameterExpression><![CDATA[$F{idos}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="id_ambiente">
+							<datasetParameterExpression><![CDATA[$F{id_ambiente}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="totalForn">
+							<datasetParameterExpression><![CDATA[$F{tFornecedor}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="554" uuid="f4792658-a8a9-444b-bea9-27ee69a9cfdd">
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="15" width="554" height="15" isPrintInFirstWholeBand="true" backcolor="#EEEEEE" uuid="9d7ef0f3-fc4b-4999-b35d-a69337c05ee0"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[    QUANT     DESCRIÇÃO                                                                             DIAS             UNIT                      TOTAL              ]]></text>
+							</staticText>
+							<textField>
+								<reportElement mode="Opaque" x="0" y="0" width="554" height="15" forecolor="#FFFFFF" backcolor="#000000" uuid="dd92deeb-4fb6-43d3-aaa7-7c5ce383203c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{amb_nome} + " - PERÍODO: " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{amb_dti}) + " à " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{amb_dtf})]]></textFieldExpression>
+							</textField>
+						</jr:columnHeader>
+						<jr:column width="60" uuid="140d68d8-f689-43b7-8f07-655cf0fc4b8b">
+							<jr:tableFooter height="20" rowSpan="1"/>
+							<jr:groupHeader groupName="group1">
+								<jr:cell height="16" rowSpan="1">
+									<staticText>
+										<reportElement mode="Opaque" x="0" y="0" width="60" height="16" backcolor="#EEEEEE" uuid="9bf34592-af41-4ca8-98fc-d58de0d6d4aa"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial" isBold="true"/>
+										</textElement>
+										<text><![CDATA[]]></text>
+									</staticText>
+								</jr:cell>
+							</jr:groupHeader>
+							<jr:detailCell height="17" rowSpan="1">
+								<textField pattern="###0">
+									<reportElement x="0" y="0" width="60" height="17" uuid="59762a30-b054-49eb-95a0-b0a191967285"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:columnGroup width="386" uuid="20712160-0874-42f0-9287-9d7dddfed932">
+							<jr:tableFooter height="20" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="386" height="20" uuid="9f26e6eb-4270-4638-af31-c350b5b75941"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font fontName="Arial" isBold="true"/>
+									</textElement>
+									<text><![CDATA[TERCEIROS - PAGTO DIRETO COM O FORNECEDOR:  ]]></text>
+								</staticText>
+							</jr:tableFooter>
+							<jr:column width="258" uuid="f955f256-c9e0-41e5-9aa0-de9950e3ebf4">
+								<jr:groupHeader groupName="group1">
+									<jr:cell height="16" rowSpan="1">
+										<textField>
+											<reportElement mode="Opaque" x="0" y="0" width="258" height="16" backcolor="#EEEEEE" uuid="8d2dac16-f23e-4144-9572-a3abbcb29fd9"/>
+											<textElement verticalAlignment="Middle">
+												<font fontName="Arial" isBold="true"/>
+											</textElement>
+											<textFieldExpression><![CDATA[$F{nome_grupo}]]></textFieldExpression>
+										</textField>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell height="17" rowSpan="1">
+									<textField textAdjust="StretchHeight">
+										<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="258" height="17" uuid="a99d16c4-f6e8-4e4c-97bd-b9e3aa9d91b2"/>
+										<textElement verticalAlignment="Middle">
+											<font fontName="Arial"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="52" uuid="4d67e44b-6d4c-41fe-8a59-8d2804c4d334">
+								<jr:groupHeader groupName="group1">
+									<jr:cell height="16" rowSpan="1">
+										<staticText>
+											<reportElement mode="Opaque" x="0" y="0" width="52" height="16" backcolor="#EEEEEE" uuid="f0c666e9-a575-4b1f-bbe5-2230b4bc3f0b"/>
+											<text><![CDATA[]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell height="17" rowSpan="1">
+									<textField pattern="">
+										<reportElement x="0" y="0" width="52" height="17" uuid="109e6b21-9d2b-4419-8b1d-8c9da0853f58"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{diarias}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="76" uuid="a1709570-0f85-405e-9f7c-4460167463b3">
+								<jr:groupHeader groupName="group1">
+									<jr:cell height="16" rowSpan="1">
+										<staticText>
+											<reportElement mode="Opaque" x="0" y="0" width="76" height="16" isPrintInFirstWholeBand="true" backcolor="#EEEEEE" uuid="119539d6-7e1c-42d4-b12e-34d738558d7b"/>
+											<textElement textAlignment="Center" verticalAlignment="Middle">
+												<font fontName="Arial" isBold="true"/>
+											</textElement>
+											<text><![CDATA[]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell height="17" rowSpan="1">
+									<textField pattern="¤ #,##0.00">
+										<reportElement x="0" y="0" width="76" height="17" uuid="33e1594c-5f02-458a-a7a6-8f5cc2d4d50c"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{precoFornecedor}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+						</jr:columnGroup>
+						<jr:column width="108" uuid="506fbd36-f61c-4bd7-aa95-4dc4d1db89fa">
+							<jr:tableFooter height="20" rowSpan="1">
+								<textField evaluationTime="Report" pattern="¤ #,##0.00">
+									<reportElement x="0" y="0" width="108" height="20" uuid="4ae8c0bc-b927-4f58-b964-ba7badf85987"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{totalFornecedor}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:groupHeader groupName="group1">
+								<jr:cell height="16" rowSpan="1">
+									<staticText>
+										<reportElement mode="Opaque" x="0" y="0" width="108" height="16" isPrintInFirstWholeBand="true" backcolor="#EEEEEE" uuid="f698ab61-6c34-4ce0-81ad-42392e317946"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial" isBold="true"/>
+										</textElement>
+										<text><![CDATA[]]></text>
+									</staticText>
+								</jr:cell>
+							</jr:groupHeader>
+							<jr:detailCell height="17" rowSpan="1">
+								<textField pattern="¤ #,##0.00">
+									<reportElement x="0" y="0" width="108" height="17" uuid="1e8bbe43-0f37-463d-a920-97f8fe8213e7"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{subtotalFornecedor}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="21">
+			<componentElement>
+				<reportElement key="table 2" stretchType="ContainerHeight" x="0" y="1" width="555" height="18" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="81bd2128-3939-4f5a-9867-7b36a2880bd6"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="RecursosSolicitados" uuid="75ca27ff-eae7-43a8-94d9-bdd5fda78276">
+						<datasetParameter name="id_orcamento">
+							<datasetParameterExpression><![CDATA[$F{idos}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="id_ambiente">
+							<datasetParameterExpression><![CDATA[$F{id_ambiente}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="554" uuid="2b4b8e3c-7bbe-4c44-a92b-5a902605142a">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [5]"/>
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="15" width="554" height="15" isPrintInFirstWholeBand="true" forecolor="#000000" backcolor="#EEEEEE" uuid="c681cd9a-57ab-46d5-9abc-b998b52c8037">
+									<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+								</reportElement>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[    QUANT     DESCRIÇÃO                                                                             DIAS             UNIT                      TOTAL              ]]></text>
+							</staticText>
+							<textField>
+								<reportElement mode="Opaque" x="0" y="0" width="554" height="15" forecolor="#FFFFFF" backcolor="#000000" uuid="605ac570-77a9-436b-bb0a-36a0c2787b21"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{amb_nome} + " - PERÍODO: " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{amb_dti}) + " à " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{amb_dtf})]]></textFieldExpression>
+							</textField>
+						</jr:columnHeader>
+						<jr:column width="60" uuid="f0debeea-a864-4df3-9014-3bfb1971901f">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+							<jr:tableFooter height="30" rowSpan="1"/>
+							<jr:groupHeader groupName="group1">
+								<jr:cell height="16" rowSpan="1">
+									<staticText>
+										<reportElement mode="Opaque" x="0" y="0" width="60" height="16" isPrintInFirstWholeBand="true" backcolor="#EEEEEE" uuid="656d8376-8f2b-4fba-9ec1-238385185afe"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial" isBold="true"/>
+										</textElement>
+										<text><![CDATA[]]></text>
+									</staticText>
+								</jr:cell>
+							</jr:groupHeader>
+							<jr:detailCell height="17" rowSpan="1">
+								<textField pattern="###0">
+									<reportElement x="0" y="0" width="60" height="17" uuid="28f3cbf8-1599-4ccf-a593-bb2c67bedf51"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="258" uuid="b34668ea-d476-44f0-bba6-06f43866763c">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+							<jr:tableFooter height="30" rowSpan="1"/>
+							<jr:groupHeader groupName="group1">
+								<jr:cell height="16" rowSpan="1">
+									<textField>
+										<reportElement mode="Opaque" x="0" y="0" width="258" height="16" backcolor="#EEEEEE" uuid="dcc85a66-fc2a-4ce4-9a20-184cab23eddb"/>
+										<textElement verticalAlignment="Middle">
+											<font fontName="Arial" isBold="true"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{nome_grupo}]]></textFieldExpression>
+									</textField>
+								</jr:cell>
+							</jr:groupHeader>
+							<jr:detailCell height="17" rowSpan="1">
+								<textField textAdjust="StretchHeight">
+									<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="258" height="17" uuid="0db21ded-42f1-4cb2-8488-4d4d7123207d"/>
+									<textElement verticalAlignment="Middle">
+										<font fontName="Arial"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="52" uuid="6d3037a5-e7f0-4923-a263-ec53eb47d9c7">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+							<jr:groupHeader groupName="group1">
+								<jr:cell height="16" rowSpan="1">
+									<staticText>
+										<reportElement mode="Opaque" x="0" y="0" width="52" height="16" backcolor="#EEEEEE" uuid="276d28dc-e453-481c-a406-7b79317784d3"/>
+										<text><![CDATA[]]></text>
+									</staticText>
+								</jr:cell>
+							</jr:groupHeader>
+							<jr:detailCell height="17" rowSpan="1">
+								<textField pattern="">
+									<reportElement x="0" y="0" width="52" height="17" uuid="e3b9d528-bf58-4ab4-995a-72b0e49a5986"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{diarias}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="76" uuid="4d9685a2-7c97-4630-b108-a590738f09f4">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+							<jr:tableFooter height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="76" height="30" uuid="76389c7c-27b4-47bd-90fd-f433140b6776"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial" isBold="true"/>
+									</textElement>
+									<text><![CDATA[TOTAL]]></text>
+								</staticText>
+							</jr:tableFooter>
+							<jr:groupHeader groupName="group1">
+								<jr:cell height="16" rowSpan="1">
+									<staticText>
+										<reportElement mode="Opaque" x="0" y="0" width="76" height="16" isPrintInFirstWholeBand="true" backcolor="#EEEEEE" uuid="ecb570c8-6954-489a-aa9b-a08e8ea53b88"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial" isBold="true"/>
+										</textElement>
+										<text><![CDATA[]]></text>
+									</staticText>
+								</jr:cell>
+							</jr:groupHeader>
+							<jr:detailCell height="17" rowSpan="1">
+								<textField pattern="">
+									<reportElement x="0" y="0" width="76" height="17" uuid="e92fbe4b-d25c-4c0f-9cd0-bd88815da258"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial"/>
+									</textElement>
+									<textFieldExpression><![CDATA[($F{precounitario}.equals(new BigDecimal(0)) && $F{tipoRecurso} == 4) ? ("PELO CLIENTE") : (($F{precounitario}.equals(new BigDecimal(0)) && $F{tipoRecurso} != 3) ? ("CORTESIA") : "R$ " + new java.text.DecimalFormat("##0.00").format($F{precounitario}))]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="108" uuid="f58524cc-8bbb-4487-854e-51badddfee8d">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+							<jr:tableFooter height="30" rowSpan="1">
+								<textField evaluationTime="Report" pattern="¤ #,##0.00">
+									<reportElement x="0" y="0" width="108" height="30" uuid="cd528b18-022a-4b24-94bf-96944ca6f5da"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:groupHeader groupName="group1">
+								<jr:cell height="16" rowSpan="1">
+									<staticText>
+										<reportElement mode="Opaque" x="0" y="0" width="108" height="16" isPrintInFirstWholeBand="true" backcolor="#EEEEEE" uuid="c6dcdf26-f2ad-4709-a454-6d06709ff8d5"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial" isBold="true"/>
+										</textElement>
+										<text><![CDATA[]]></text>
+									</staticText>
+								</jr:cell>
+							</jr:groupHeader>
+							<jr:detailCell height="17" rowSpan="1">
+								<textField pattern="¤ #,##0.00">
+									<reportElement x="0" y="0" width="108" height="17" uuid="7db8ec38-15bf-4b9c-a34d-cf827e0405c9"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial"/>
+									</textElement>
+									<textFieldExpression><![CDATA[($F{precounitario}.equals(new BigDecimal(0)) && $F{tipoRecurso} == 4) ? ("PELO CLIENTE") : (($F{precounitario}.equals(new BigDecimal(0)) && $F{tipoRecurso} != 3) ? ("CORTESIA") : "R$ " + new java.text.DecimalFormat("##0.00").format($F{subtotal}))]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="82" splitType="Stretch">
+			<textField>
+				<reportElement x="433" y="61" width="80" height="20" uuid="1005404f-a737-4549-ad06-a5b84dd80b36"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="513" y="61" width="40" height="20" uuid="4468be2c-4de1-4d07-8ef8-34de2952cb5d"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="Reference">
+				<reportElement mode="Opaque" x="0" y="39" width="555" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="5363cc71-3691-406d-9e05-b1d70af8037c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Grupo SNE"]]></textFieldExpression>
+				<anchorNameExpression><![CDATA["Grupo SNE"]]></anchorNameExpression>
+				<hyperlinkReferenceExpression><![CDATA["https://www.gruposne.com.br/"]]></hyperlinkReferenceExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="9e713fe9-05e2-40e0-b253-9d3d4c78ab82"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[São Paulo  |  Rio de Janeiro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="19" width="555" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="2328e56b-798d-4cdc-8f55-997692135648">
+					<property name="hyperlink" value=""/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Salvador  |  Recife  |  Fortaleza  |  Natal  | Maceió  |  João Pessoa]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="233">
+			<image>
+				<reportElement x="0" y="5" width="555" height="224" uuid="a2474b10-8a4d-4892-8c5d-b609d27980c8">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{logos}]]></imageExpression>
+			</image>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="614" splitType="Stretch">
+			<printWhenExpression><![CDATA[$F{detalhesevento} != null && !$F{detalhesevento}.equals("")]]></printWhenExpression>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="580" width="515" height="32" uuid="f7885dbf-b8a9-461d-8de3-eb1b19ecb052"/>
+				<textElement>
+					<font fontName="Arial" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[DE ACORDO:_____________________________________
+DATA:  _____ / _____ / __________         ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="1" y="563" width="552" height="13" uuid="fc390df9-340b-4870-988f-4fbf7428ef92"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefone_proposta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="1" y="548" width="553" height="15" uuid="afd57cde-3da4-4b3f-bdec-2cd91736c646"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo_proposta}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="122" y="133" width="430" height="15" isRemoveLineWhenBlank="true" uuid="509bd18d-8317-4bce-9c31-38997fa78451"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{condicoes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="257" width="555" height="23" uuid="90218cc4-3e4f-4c01-858b-657916b6dd50">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• Caso haja necessidade de montagem na madrugada o custo com hospedagem e equipe técnica extra será por conta do contratante.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="177" y="88" width="267" height="17" uuid="165d654e-5f09-403c-b35d-7f62981d38b2">
+					<printWhenExpression><![CDATA[$F{terEmp} && $F{orcTer}.doubleValue() > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Terceirizados Fechamento SNE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="-1" y="133" width="133" height="15" isRemoveLineWhenBlank="true" backcolor="#CCCCCC" uuid="dbcd423b-7a47-4290-b2a5-f238ce5749a4">
+					<printWhenExpression><![CDATA[$F{condicoes} != null && !$F{condicoes}.equals("")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Forma de Pagamento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="291" width="555" height="23" uuid="7614df90-1379-4fb8-8bef-a16ae12ff55b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• Diária de equipe técnica representa 10h de trabalho. Horas excedentes serão cobradas após o evento conforme tabela em vigor.]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement positionType="Float" x="453" y="88" width="100" height="17" uuid="648e5229-a06f-4071-af90-6b8eb9efff7a">
+					<printWhenExpression><![CDATA[$F{terEmp} && $F{orcTer}.doubleValue() > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalEmp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="501" width="555" height="14" uuid="56051e52-81f6-45bb-82e6-7e815f20825b"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Será um prazer atendê-los e poder contribuir para o sucesso do seu evento.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="290" y="71" width="154" height="17" uuid="fb7ec9a8-728a-48ea-a419-1b929479560c"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement positionType="Float" x="453" y="71" width="100" height="17" uuid="e2d68212-1e26-413f-903f-5c6221221663"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{preco_final}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement positionType="Float" x="453" y="37" width="100" height="17" uuid="80df612a-5050-4879-aa9f-144137c1d0d6">
+					<printWhenExpression><![CDATA[$F{desconto}.compareTo(new BigDecimal(0)) > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{preco}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="485" width="555" height="16" uuid="33bb6e81-eb67-4cdb-8bd6-5d160cbdb7fd"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Ficamos à disposição para quaisquer esclarecimentos ou negociações que se fizerem necessárias.
+]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-1" y="35" width="555" height="1" uuid="33434cb0-ad8b-463d-a761-1ffbcced0484"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="124" width="555" height="1" uuid="406a2264-482c-4531-ae3d-e34f0950efff"/>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="279" width="555" height="12" uuid="31fa20be-d0c7-4c7f-a279-466fc32341a6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• Montagem / desmontagem após as 21h, acarretará em cobrança extra conforme tabela em vigor.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="445" width="555" height="39" uuid="6f12615e-5bdd-407f-8604-e7b3eace5bc1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[EMPRESA OPTANTE PELO SIMPLES NACIONAL, DISPENSADO DE RETENÇÃO DE PIS, COFINS E SLH CONFORME INCISO III DO ARTIGO 32 DA LEI 10.833 DE 29/12/2003.
+EMPRESA DE LOCAÇÃO DE BENS MÓVEIS ISENTO DE ISS CONFORME LEI COMPLEMENTAR N° 166.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="384" width="555" height="23" uuid="5c38f305-c2fc-4527-a14f-fbe578685eea"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• O valor total presente na proposta refere-se aos serviços e datas especificados, solicitações extras posteriores incidirão custos correspondentes e aditivo de contrato correspondente.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="172" width="555" height="20" uuid="da2eb48d-8895-419c-942b-a96d1a9b1278"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Condições Gerais]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="349" width="555" height="12" uuid="60487c4d-176c-43c3-bb4e-17dbbb2c4998">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• Validade da proposta: 10 dias.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="16" width="555" height="20" uuid="9b5ebe57-4c7f-44a8-8464-eb48dd96581d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Resumo do Evento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="290" y="37" width="154" height="17" uuid="3130c604-bb9c-4182-8acb-048f4837b369">
+					<printWhenExpression><![CDATA[$F{desconto}.compareTo(new BigDecimal(0)) > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subtotal:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="1" y="533" width="553" height="15" uuid="5b0bbbb9-f52b-4aed-8098-511bf382cccf"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_proposta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="177" y="105" width="267" height="17" uuid="6f3e51a5-1bb0-4a5e-aec0-04fd9cbf4ad5">
+					<printWhenExpression><![CDATA[$F{terFor} && $F{orcTer}.doubleValue() > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Total Terceirizados Fechamento Fornecedor:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="407" width="555" height="23" uuid="895b4864-1162-40c9-9e52-439f8365aec4"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• O Cancelamento somente será considerado sem ônus ao contratante caso ocorra no prazo de até 15 dias antes da montagem do evento. Após esse período incidirá em multa de 50% do valor total da proposta.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="198" width="555" height="23" uuid="dc69684d-1b11-4e2d-aad2-c2f2d8e20137">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• Esta proposta e quaisquer de seus anexos contém informações confidenciais e de uso exclusivo das partes envolvidas, sendo proibida a divulgação total ou parcial das mesmas para terceiros.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="290" y="54" width="154" height="17" uuid="9b2db64b-2b98-4318-b4bb-7a6bb3e34118">
+					<printWhenExpression><![CDATA[$F{desconto}.compareTo(new BigDecimal(0)) > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desconto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="314" width="555" height="35" uuid="c297370b-744d-48be-8fbb-d4b95c1219d3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• Seguro Equipe Operacional: para garantir a segurança da equipe durante montagem, evento e desmontagem do seu evento, será incluso nesse orçamento o valor de R$ 50,00 por pessoa da equipe operacional do Grupo SNE. A seguradora que emitirá a apólice de seguro para o evento será a CHUBB Seguros /Prudential / Porto Seguro.]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement positionType="Float" x="453" y="54" width="100" height="17" uuid="31c7d6d6-6135-450a-a05a-4a38a8ca905c">
+					<printWhenExpression><![CDATA[$F{desconto}.compareTo(new BigDecimal(0)) > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{desconto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement positionType="Float" x="453" y="105" width="100" height="17" uuid="9ba9e218-b00f-496e-a125-f7dcd2549343">
+					<printWhenExpression><![CDATA[$F{terFor} && $F{orcTer}.doubleValue() > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tFornecedor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="515" width="555" height="16" uuid="cc028558-79b2-43fe-8270-08e360d97a4c"/>
+				<textElement>
+					<font fontName="Arial" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Atenciosamente,
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="361" width="555" height="23" uuid="ecc08b88-5ba0-4424-bc59-7224b23e5b22">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• Essa proposta não garante reserva dos equipamentos e serviços. A confirmação será válida mediante assinatura de contrato e regularidade de condições de pagamento acordadas.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="430" width="555" height="12" uuid="9138f0a1-a83c-42a4-b66f-4d1d6c8ae908">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• Formas de pagamento: Transferência bancaria, boleto ou cartão de crédito.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="222" width="555" height="35" uuid="4f5d0e90-19fd-4a8f-a3c0-51c20d12caf5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• O Grupo SNE não se responsabiliza por eventuais arquivos armazenados em seus computadores, reservando-se do direito de excluí-los ao término do evento. Caso haja necessidade de gravação deverá ser comunicado com antecedência no momento da solicitação / negociação da proposta.]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="etiquetas" pageWidth="229" pageHeight="102" orientation="Landscape" columnWidth="229" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="cb52f400-aafe-4106-90c0-f61cc4e4696b">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="dataset1" uuid="d7c109b7-c1c3-433c-9cca-a7adfd3953c3"/>
+	<parameter name="id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     equipamento.marca AS equipamento_marca,
+     equipamento.modelo AS equipamento_modelo,
+     equipamento.numeroSerie AS equipamento_numeroSerie
+FROM
+     equipamento equipamento LEFT JOIN equipamentosublocado equipamentosublocado ON equipamento.id = equipamentosublocado.equipamento_id
+WHERE
+     equipamento.grupo = $P{id}
+	AND equipamentosublocado.equipamento_id IS NULL
+	AND equipamento.status <> 4]]>
+	</queryString>
+	<field name="equipamento_marca" class="java.lang.String"/>
+	<field name="equipamento_modelo" class="java.lang.String"/>
+	<field name="equipamento_numeroserie" class="java.lang.String"/>
+	<variable name="Titulo" class="java.lang.Long">
+		<variableExpression><![CDATA[78987654321]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="102" splitType="Stretch">
+			<elementGroup/>
+			<textField>
+				<reportElement x="0" y="7" width="229" height="20" uuid="3e93d5cb-c940-4d73-9fee-9cf5718641e4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipamento_marca} + " - "  + $F{equipamento_modelo}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="35" y="47" width="158" height="29" uuid="ab408385-5f5e-4524-8d38-a0d896cebcd5"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="EAN13" drawText="false" checksumRequired="false" barWidth="2">
+					<jr:codeExpression><![CDATA[$F{equipamento_numeroserie}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement x="0" y="26" width="229" height="21" uuid="e9f3510c-c29c-4676-a2d8-b5f7bcbf45e9"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipamento_numeroserie}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="RegistroSublocacao" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+		
+		<property name="dataInicio" type="date" />
+		<property name="dataFim" type="date"/>
+		<property name="preco" />
+		<property name="observacoes" />
+		<property name="deletado" />
+		<property name="finalizada" />
+		
+		<many-to-one name="funcionario" class="Funcionario" />
+		<many-to-one name="fornecedor" class="Fornecedor" />
+		<many-to-one name="unidade" class="Unidade" />
+		
+		<list name="equipamentos" cascade="all">
+			<key column="idRegistroSublocacao" />
+			<list-index column="indiceEquipamentoSublocado" />
+			<one-to-many class="EquipamentoSublocado" />
+		</list>
+	</class>
+</hibernate-mapping>

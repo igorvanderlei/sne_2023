@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelacaoEquipamentosPorGrupo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a4e97f05-1722-41ad-b4b9-5665ea17734f">
+	<property name="ireport.zoom" value="0.9090909090909093"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#73B0E6">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFDBE6">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#F3F6F8"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#E6F3FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#F8FCFF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#E6F3FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#F8FCFF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#E6F3FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#F8FCFF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="e6b77c9e-90ce-4482-ada5-6614a7671a31">
+		<queryString>
+			<![CDATA[SELECT
+     recurso.`codigo` AS recurso_codigo,
+     recurso.`descricao` AS recurso_descricao,
+     CASE equipamento.`status`
+       	WHEN 0 THEN 'DISPONÍVEIS'
+       	WHEN 1 THEN 'LOCADOS'
+	WHEN 2 THEN 'ASSISTÊNCIA TÉC.'
+	WHEN 3 THEN 'PENDENTES'
+	WHEN 4 THEN 'DESCARTADOS'
+     END AS status,
+     COUNT(equipamento.`status`) AS qtdStatus,
+     recurso.`nome` AS recurso_nome,
+     grupo.`nome` AS grupo_nome,
+     grupo.`codigo` AS grupo_codigo
+
+FROM
+     `grupo` grupo LEFT JOIN `recurso` recurso ON grupo.`id` = recurso.`grupo`
+     LEFT JOIN `equipamento` equipamento ON grupo.`id` = equipamento.`grupo`
+GROUP BY grupo.`id`, equipamento.`status`]]>
+		</queryString>
+		<field name="recurso_codigo" class="java.lang.String"/>
+		<field name="recurso_descricao" class="java.lang.String"/>
+		<field name="status" class="java.lang.String"/>
+		<field name="qtdStatus" class="java.lang.Long"/>
+		<field name="recurso_nome" class="java.lang.String"/>
+		<field name="grupo_nome" class="java.lang.String"/>
+		<field name="grupo_codigo" class="java.lang.String"/>
+		<group name="group1"/>
+	</subDataset>
+	<parameter name="imagem" class="java.lang.Object"/>
+	<queryString>
+		<![CDATA[select  r.nome as recurso, g.nome as grupo, count(e.id) as qtd, r.descricao,
+    CASE e.status
+	WHEN 0 THEN 'DISPONÍVEIS'
+       	WHEN 1 THEN 'LOCADOS'
+	WHEN 2 THEN 'ASSISTÊNCIA TÉC.'
+	WHEN 3 THEN 'PENDENTES'
+	WHEN 4 THEN 'DESCARTADOS'
+     END AS statuss
+from equipamento e inner join grupo g
+	on e.grupo = g.id
+	inner join recurso r
+	on r.grupo = g.id
+	left join equipamentosublocado s
+	on s.equipamento_id = e.id
+where e.descricaoequipamento = r.id
+	and s.equipamento_id is null
+group by g.nome, r.nome, statuss, r.descricao
+order by g.nome, r.nome]]>
+	</queryString>
+	<field name="recurso" class="java.lang.String"/>
+	<field name="grupo" class="java.lang.String"/>
+	<field name="qtd" class="java.lang.Long"/>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="statuss" class="java.lang.String"/>
+	<group name="grupo" isReprintHeaderOnEachPage="true" keepTogether="true">
+		<groupExpression><![CDATA[$F{grupo}]]></groupExpression>
+		<groupHeader>
+			<band height="74" splitType="Prevent">
+				<textField>
+					<reportElement x="2" y="27" width="551" height="19" uuid="5dacb5c8-96be-4dcc-9bd2-d0959df851c7"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{grupo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="61" y="57" width="100" height="15" uuid="9250d3f2-34f9-4e5b-88f5-a3f80e2170ba"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Subgrupo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="171" y="57" width="100" height="15" uuid="05d6462a-7acc-4618-ae37-c528ae2c562c"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Descrição]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="281" y="56" width="100" height="15" uuid="48591951-fdee-4c06-a907-8ecfde61d5af"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Status]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="390" y="56" width="98" height="15" uuid="cf36e4a8-2633-4265-b435-5a60745d57cf"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[QTD]]></text>
+				</staticText>
+				<line>
+					<reportElement x="61" y="72" width="427" height="1" uuid="a5b9aeb8-3f70-4cc1-bc48-babe2db2a081"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="133" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="94" width="555" height="32" uuid="df6d9e66-6d08-486c-9b7c-155e21bf0a7f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantitativo de Equipamentos por Grupo]]></text>
+			</staticText>
+			<image>
+				<reportElement x="1" y="1" width="555" height="68" uuid="f4ebd974-ffd1-4d2b-b29d-167289289f43"/>
+				<imageExpression><![CDATA[$P{imagem}]]></imageExpression>
+			</image>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="450" y="72" width="106" height="20" uuid="e1070e76-838d-4fcb-8fd7-66627727fce8"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="415" y="72" width="35" height="20" uuid="10072216-017c-4991-934b-b20ee7280b42"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Recife, ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="17" splitType="Prevent">
+			<textField>
+				<reportElement x="61" y="0" width="100" height="15" uuid="2f56fd44-2840-430c-bd2b-d873a46a0083"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recurso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="171" y="-1" width="100" height="15" uuid="295257ff-4f17-4d61-b2bd-b80ab1a10aa2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="-1" width="100" height="15" uuid="2dfaba62-95f3-421a-8fbb-f559a0b8ec6e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{statuss}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="0" width="98" height="15" uuid="4669b514-8752-432a-be5b-64dc2b91f83a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qtd}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="61" y="15" width="427" height="1" uuid="cc75d01d-ed16-4b2a-8c94-8a99f60b748d"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="432" y="31" width="80" height="20" uuid="5501b46d-b94e-4b38-9b33-744265ef241a"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="512" y="31" width="40" height="20" uuid="8f8f5249-d90a-49e9-913a-8cca8124e75d"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

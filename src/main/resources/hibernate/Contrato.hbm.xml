@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="Contrato" lazy="true">
+		<id name="id">
+            <generator class="identity" />  
+		</id>
+
+		<property name="imagemAssinatura" type="string">
+			<column name="imagemAssinatura" sql-type="text" />
+		</property>
+	<!-- 	<property name="anexo1" type="string">
+			<column name="anexo1" sql-type="text" />
+		</property>
+		<property name="anexo2" type="string">
+			<column name="anexo2" sql-type="text" />
+		</property> -->
+		<property name="documentoContrato" type="string">
+			<column name="documentoContrato" sql-type="text" />
+		</property>		
+		
+		<property name="observacoes" type="string">
+			<column name="observacoes" sql-type="text" />
+		</property>
+		
+		<property name="deletado" />
+
+		<property name="tipo" />
+		
+		<many-to-one name="ordemServico" class="OrdemServico" ></many-to-one>
+
+	</class>
+</hibernate-mapping>

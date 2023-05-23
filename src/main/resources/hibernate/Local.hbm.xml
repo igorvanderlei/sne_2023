@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="Local" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="nome" />
+		<property name="observacoes" type="text" />
+		<property name="deletado" />
+
+		<many-to-one name="endereco" class="Endereco" cascade="all" lazy="false"/>
+
+		<list name="salaLocals" cascade="all-delete-orphan" lazy="false">
+			<key column="idLocal" />
+			<list-index column="indiceSalaLocal" />
+			<one-to-many class="SalaLocal" />
+		</list>
+	</class>
+</hibernate-mapping>

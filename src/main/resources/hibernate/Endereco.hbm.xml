@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="Endereco" lazy="false">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="logradouro" />
+		<property name="numero" />
+		<property name="complemento" />
+		<property name="bairro" />
+		<property name="cidade" />
+		<property name="cep" />
+		<property name="estado" />
+		<property name="pontoReferencia" />
+		<property name="deletado" />
+
+
+	</class>
+</hibernate-mapping>

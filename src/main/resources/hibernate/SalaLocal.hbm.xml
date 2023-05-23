@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="SalaLocal" lazy="true">
+		<id name="id" >
+            <generator class="identity" />
+		</id>
+
+		<property name="nome" />
+		<property name="largura" />
+		<property name="comprimento"/>
+		<property name="peDireito"/>
+		<property name="areaTotal"/>
+		<property name="pontoFixacaoAerea"/>
+		<property name="pontosFixacaoAerea"/>
+		<property name="deletado" />
+
+				
+	</class>
+</hibernate-mapping>

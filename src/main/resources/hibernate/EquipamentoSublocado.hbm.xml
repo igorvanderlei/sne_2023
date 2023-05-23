@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<joined-subclass name="EquipamentoSublocado" lazy="true" extends="Equipamento">
+		<key column="equipamento_id" />
+		<property name="dataInicio" />
+		<property name="dataFim" />
+		<property name="dataDevolucao" />
+		<property name="devolvido" />
+
+		<many-to-one name="fornecedor" class="Fornecedor" />
+
+	</joined-subclass>
+</hibernate-mapping>

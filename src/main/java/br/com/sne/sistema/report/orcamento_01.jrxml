@@ -1,0 +1,1021 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ordemServico2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="622377ac-cf1d-4ddf-871b-b3c1b39cbf5c">
+	<property name="ireport.zoom" value="1.1269722013523664"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="400"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#8FCCCC">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFE6E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#9D9DAE">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#E6E6FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#F8F8FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="RecursosSolicitados" uuid="0f1b20c9-da76-4b7d-a121-691633b5ff68">
+		<parameter name="id_orcamento" class="java.lang.Long"/>
+		<parameter name="id_ambiente" class="java.lang.Long"/>
+		<queryString>
+			<![CDATA[SELECT
+    	recursosolicitado.descricao as nome, recursosolicitado.precoUnitario as precounitario, quantidade, diarias, subtotal, totalll.t as total, grupo, grupo.nome as nome_grupo,
+	grupo.tiporecurso as tipoRecurso,
+	amb.nome as amb_nome, amb.dataInicio as amb_dti, amb.dataFim as amb_dtf
+FROM
+	recursosolicitado, grupo, recurso, ambienteevento as amb ,
+		(SELECT sum(subtotal) as t from recursosolicitado
+			WHERE idOrcamento = $P{id_orcamento} and ambiente = $P{id_ambiente}
+		) as totalll
+WHERE
+	recursosolicitado.recurso = recurso.id and recursosolicitado.idOrcamento = $P{id_orcamento}
+	and ambiente = $P{id_ambiente} and recursosolicitado.ambiente = amb.id
+        and recurso.grupo = grupo.id
+ORDER BY grupo.tiporecurso asc, grupo.id asc, recursosolicitado.id asc]]>
+		</queryString>
+		<field name="nome" class="java.lang.String"/>
+		<field name="precounitario" class="java.lang.Float"/>
+		<field name="quantidade" class="java.lang.Integer"/>
+		<field name="diarias" class="java.lang.Integer"/>
+		<field name="subtotal" class="java.lang.Float"/>
+		<field name="total" class="java.lang.Float"/>
+		<field name="amb_nome" class="java.lang.String"/>
+		<field name="amb_dti" class="java.util.Date"/>
+		<field name="amb_dtf" class="java.util.Date"/>
+		<field name="grupo" class="java.lang.Integer"/>
+		<field name="nome_grupo" class="java.lang.String"/>
+		<field name="tipoRecurso" class="java.lang.Long"/>
+		<variable name="total" class="java.lang.Float" resetType="None" calculation="Sum">
+			<variableExpression><![CDATA[$F{diarias}]]></variableExpression>
+		</variable>
+		<group name="group1">
+			<groupExpression><![CDATA[$F{grupo}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="RecursosTerceirizados" uuid="98b49c90-014e-4f83-abfa-5d11cd81706f">
+		<parameter name="id_orcamento" class="java.lang.Long"/>
+		<parameter name="id_ambiente" class="java.lang.Long"/>
+		<parameter name="totalForn" class="java.lang.Float"/>
+		<queryString>
+			<![CDATA[SELECT
+  recursoterceirizadosolicitado.descricao as nome,
+  recursoterceirizadosolicitado.quantidade as quantidade,
+
+  recursoterceirizadosolicitado.precoEmpresa as precoEmpresa,
+  CASE when recursoterceirizado.calculardiarias THEN (recursoterceirizadosolicitado.precoEmpresa * diarias * quantidade )
+       ELSE (recursoterceirizadosolicitado.precoEmpresa * quantidade)
+  END as subtotalEmpresa,
+
+  recursoterceirizado.precoFornecedor as precoFornecedor,
+  CASE when recursoterceirizado.calculardiarias THEN (recursoterceirizadosolicitado.precoFornecedor * diarias * quantidade )
+       ELSE (recursoterceirizadosolicitado.precoFornecedor * quantidade )
+  END as subtotalFornecedor,
+
+  diarias,
+
+  recursoterceirizado.calculardiarias as calcularD,
+
+  totalEmpresa,
+  totalFornecedor,
+  grupo,
+  grupo.nome as nome_grupo,
+  amb.nome as amb_nome,
+  amb.dataInicio as amb_dti,
+  amb.dataFim as amb_dtf
+
+FROM
+	recursoterceirizadosolicitado, grupo, recursoterceirizado, ambienteevento as amb ,
+	(SELECT sum(subtotalempresa) as totalEmpresa, sum(subtotalfornecedor) as totalFornecedor
+		FROM ( SELECT
+			CASE when recursoterceirizado.calculardiarias = true THEN (recursoterceirizadosolicitado.precoEmpresa * diarias * quantidade )
+			ELSE (recursoterceirizadosolicitado.precoEmpresa * quantidade)
+			END as subtotalEmpresa,
+
+			CASE when recursoterceirizado.calculardiarias = true THEN (recursoterceirizadosolicitado.precoFornecedor * diarias * quantidade )
+			ELSE (recursoterceirizadosolicitado.precoFornecedor * quantidade )
+			END as subtotalFornecedor
+
+			FROM recursoterceirizadosolicitado, recursoterceirizado
+
+			WHERE
+				recursoterceirizadosolicitado.recurso = recursoterceirizado.id
+				and recursoterceirizadosolicitado.idOrcamento = $P{id_orcamento}
+				and ambiente =  $P{id_ambiente}
+		    ) as total
+	) as totalll
+
+WHERE
+	recursoterceirizadosolicitado.recurso = recursoterceirizado.id
+	and recursoterceirizadosolicitado.idOrcamento = $P{id_orcamento}
+	and ambiente =  $P{id_ambiente}
+	and recursoterceirizadosolicitado.ambiente = amb.id
+        and recursoterceirizado.grupo = grupo.id
+ORDER BY grupo.id asc,recursoterceirizadosolicitado.id asc]]>
+		</queryString>
+		<field name="nome" class="java.lang.String"/>
+		<field name="precoFornecedor" class="java.lang.Float"/>
+		<field name="diarias" class="java.lang.Integer"/>
+		<field name="subtotalFornecedor" class="java.lang.Float"/>
+		<field name="subtotalEmpresa" class="java.lang.Float"/>
+		<field name="amb_nome" class="java.lang.String"/>
+		<field name="amb_dti" class="java.util.Date"/>
+		<field name="amb_dtf" class="java.util.Date"/>
+		<field name="grupo" class="java.lang.Integer"/>
+		<field name="nome_grupo" class="java.lang.String"/>
+		<field name="quantidade" class="java.lang.Integer"/>
+		<field name="totalEmpresa" class="java.lang.Float"/>
+		<field name="totalFornecedor" class="java.lang.Float"/>
+		<field name="calcularD" class="java.lang.Boolean"/>
+		<field name="precoEmpresa" class="java.lang.Float"/>
+		<variable name="totalTerceirizados" class="java.lang.Float" calculation="Sum">
+			<variableExpression><![CDATA[$F{diarias}]]></variableExpression>
+		</variable>
+		<group name="group1">
+			<groupExpression><![CDATA[$F{grupo}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\workspace\\projeto2\\br\\com\\nordesti\\locav\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="imagem" class="java.lang.Object"/>
+	<parameter name="cidade" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logos" class="java.lang.Object"/>
+	<queryString>
+		<![CDATA[SELECT
+	o.precoterceirizado as orcTer, o.terceirizadoempresa as terEmp, o.subtotalTerceirizadoEmpresa as totalEmp, o.subtotalTerceirizadoForn as tFornecedor, o.id as idOS, o.dataInicio as dataInicioOS, o.dataFim as dataFimOS, o.nomeEvento,  o.observacoes as observacoesOS, f.id as id_funcionario, f.nome as nome_funcionario, c.id as id_cliente,  c.nome as nome_cliente, c.contato as nome_contato, le.nome , end_le.logradouro as local_logradouro,
+	end_le.numero as local_numero, end_le.complemento as local_complemento, end_le.bairro as local_bairro,
+	end_le.cidade as local_cidade, o.terceirizadofornecedor as terFor,
+	end_le.cep as local_cep, end_le.estado as local_estado, end_le.pontoreferencia as loca_ponto_referencia, o.datamontagem, o.horainicio, o.horafim, o.horamontagem, c.fone, c.email,
+	o.observacoesCliente as observacoes, o.condicoesPagamento as condicoes, f.celular as celular_funcionario, amb.nome as nome_ambiente, amb.id as id_ambiente, o.desconto as desconto,
+	o.preco as preco, (preco - o.desconto) as preco_final, o.nomeProposta as nome_proposta, o.nomePropostaConjunta as nome_proposta_c,
+	o.telefoneproposta as telefone_proposta,o.telefonepropostaConjunta as telefone_proposta_c, o.cargoproposta as cargo_proposta,o.cargopropostaconjunta as cargo_proposta_c, o.detalhesevento,
+	vc.id as venConId
+FROM
+	orcamento o
+		left join funcionario vc on (vc.id = o.vendedorconjunto)
+		left join funcionario f on (f.id = o.funcionario)
+		left join cliente c on (c.id = o.cliente)
+		left join localevento le on (le.id = o.local)
+		left join endereco end_le on ( end_le.id = le.endereco)
+		left join ambienteevento amb on amb.idorcamento = o.id
+WHERE
+	o.id = $P{id}
+GROUP BY
+	nome_ambiente, o.id, o.dataInicio, o.dataFim, o.nomeEvento,  o.observacoes, f.id, f.nome, c.id,
+	c.nome, le.nome , end_le.logradouro, end_le.numero, end_le.complemento, end_le.bairro, end_le.cidade,
+	end_le.cep , end_le.estado , end_le.pontoreferencia, o.datamontagem, o.horainicio, o.horafim,
+	o.horamontagem, c.fone, c.email, o.observacoesCliente , o.condicoesPagamento, f.celular, amb.id,
+	o.desconto, o.preco, preco_final, o.nomeProposta, o.telefoneproposta, o.cargoproposta, c.contato, o.detalhesevento,vc.id]]>
+	</queryString>
+	<field name="idos" class="java.lang.Long"/>
+	<field name="datainicioos" class="java.sql.Date"/>
+	<field name="datafimos" class="java.sql.Date"/>
+	<field name="nomeevento" class="java.lang.String"/>
+	<field name="venConId" class="java.lang.Long"/>
+	<field name="observacoesos" class="java.lang.String"/>
+	<field name="id_funcionario" class="java.lang.Long"/>
+	<field name="nome_funcionario" class="java.lang.String"/>
+	<field name="id_cliente" class="java.lang.Long"/>
+	<field name="nome_cliente" class="java.lang.String"/>
+	<field name="nome_contato" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="local_logradouro" class="java.lang.String"/>
+	<field name="local_numero" class="java.lang.String"/>
+	<field name="local_complemento" class="java.lang.String"/>
+	<field name="local_bairro" class="java.lang.String"/>
+	<field name="local_cidade" class="java.lang.String"/>
+	<field name="local_cep" class="java.lang.String"/>
+	<field name="local_estado" class="java.lang.String"/>
+	<field name="loca_ponto_referencia" class="java.lang.String"/>
+	<field name="datamontagem" class="java.sql.Timestamp"/>
+	<field name="horainicio" class="java.sql.Time"/>
+	<field name="horafim" class="java.sql.Time"/>
+	<field name="horamontagem" class="java.sql.Time"/>
+	<field name="fone" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="observacoes" class="java.lang.String"/>
+	<field name="condicoes" class="java.lang.String"/>
+	<field name="celular_funcionario" class="java.lang.String"/>
+	<field name="nome_ambiente" class="java.lang.String"/>
+	<field name="id_ambiente" class="java.lang.Long"/>
+	<field name="desconto" class="java.math.BigDecimal"/>
+	<field name="preco" class="java.math.BigDecimal"/>
+	<field name="preco_final" class="java.math.BigDecimal"/>
+	<field name="nome_proposta" class="java.lang.String"/>
+	<field name="telefone_proposta" class="java.lang.String"/>
+	<field name="cargo_proposta" class="java.lang.String"/>
+	<field name="detalhesevento" class="java.lang.String"/>
+	<field name="totalEmp" class="java.math.BigDecimal"/>
+	<field name="tFornecedor" class="java.math.BigDecimal"/>
+	<field name="terEmp" class="java.lang.Boolean"/>
+	<field name="terFor" class="java.lang.Boolean"/>
+	<field name="orcTer" class="java.math.BigDecimal"/>
+	<field name="nome_proposta_c" class="java.lang.String"/>
+	<field name="telefone_proposta_c" class="java.lang.String"/>
+	<field name="cargo_proposta_c" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="523" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="97" width="554" height="23" uuid="fdbbbc75-52d9-4ba6-8a94-798a10a4427a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Orçamento N° " +$F{idos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="221" width="64" height="15" uuid="abbef61a-0fef-411a-bcf5-d9a0a160af82"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vendedor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="64" y="221" width="489" height="15" uuid="772e6846-d562-4fb9-8af9-533925b76ccb"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_funcionario}]]></textFieldExpression>
+			</textField>
+			<textField pattern="d/M/yyyy" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="63" y="239" width="50" height="15" uuid="7a4d6644-a048-44c3-818d-a18b28a84d40"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datainicioos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="218" y="239" width="55" height="15" uuid="c0b389f5-8f54-43b5-be56-8f5917c87394"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Fim:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="113" y="239" width="22" height="15" uuid="2cc0910c-087d-4b5a-9a3d-1dc35774acd5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[às]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="256" width="90" height="15" uuid="7719934d-6e82-41b2-88a9-ce21025e4806"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Montagem:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="139" y="256" width="22" height="15" uuid="d80f5f1b-ab00-415f-a9a3-80e73845504f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[às]]></text>
+			</staticText>
+			<textField pattern="HH:mm" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="134" y="239" width="67" height="15" uuid="8b3537c9-1086-476b-a6a1-cf3c95924fdd"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horainicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="161" y="256" width="100" height="15" uuid="16f56f97-6355-4b2b-97d8-34c8410bc76e"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horamontagem}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="323" y="239" width="22" height="15" uuid="3cfbba4d-1f16-4ddb-8f87-5cfbde3c7c83"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[às]]></text>
+			</staticText>
+			<textField pattern="d/M/yyyy" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="272" y="239" width="50" height="15" uuid="63d9415c-06fb-431c-a6f1-5bd64869dc69"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datafimos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="d/M/yyyy" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="89" y="256" width="50" height="15" uuid="57af6e04-a28a-4a8f-bbd4-82efa279e3e0"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datamontagem}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="239" width="64" height="15" uuid="5ed66fcb-39a9-4cec-9e83-9aa24943b912"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Início:]]></text>
+			</staticText>
+			<textField pattern="HH:mm" isBlankWhenNull="false">
+				<reportElement positionType="Float" x="345" y="239" width="82" height="15" uuid="c7d5b323-6e49-4e71-8f1d-b9a1a72f865d"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horafim}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="447" y="77" width="108" height="20" uuid="3463a170-ad51-4f4f-ac20-045e610dc9c2"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="372" y="77" width="75" height="20" uuid="3bd8ed7a-3fcb-46a3-88dd-3139e58be023"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cidade}+","]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="33" y="148" width="516" height="15" isRemoveLineWhenBlank="true" uuid="dc53d83f-1cf3-4ec7-9c9f-f2b85ff6237a"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fone}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="41" y="164" width="506" height="15" uuid="d127650f-e5ca-4438-992d-4e4484ad5998"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="148" width="32" height="15" uuid="29acd5c5-8953-418f-ae34-575d95fc73e3"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fone:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="164" width="41" height="15" uuid="5df89389-2f76-4b51-9b28-9ba54698d743"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="555" height="77" uuid="802c3100-b8a8-4607-ba81-a0552062de9c"/>
+				<imageExpression><![CDATA[$P{imagem}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="381" width="555" height="15" backcolor="#CCCCCC" uuid="763a1dd0-fc67-48a4-abd4-5a573ea68795">
+					<printWhenExpression><![CDATA[$F{observacoes} != null && $F{observacoes} != ""]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observações]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="372" y="299" width="178" height="15" uuid="4d180100-96fc-4eef-a0cb-292add361117"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{local_numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="314" width="277" height="15" uuid="f0a63090-9fdf-448b-9831-b4e89118bb0f"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{local_cidade}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="327" y="313" width="45" height="15" uuid="f22df149-4ede-4c38-aa3e-ad640a788798"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="66" y="299" width="251" height="15" uuid="d5ca26b1-d05a-44cc-8409-be6926beab81"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{local_logradouro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="113" y="362" width="438" height="15" uuid="0dcb9c88-5dd3-42a4-a1c9-e9c65cad6ea3"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{loca_ponto_referencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="346" width="470" height="15" uuid="89ea5203-2df4-4d63-b3d8-03656e307d35"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{local_complemento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="362" width="112" height="15" uuid="9c152847-c02c-43dc-b75e-cf78761f80db"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ponto de Referência:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="314" width="39" height="15" uuid="1659a228-53e7-4bb3-87c6-535dddae304b"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cidade:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="330" width="38" height="15" uuid="01f6aadc-25da-4070-b274-ebf257945cc2"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bairro:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="346" width="80" height="15" uuid="034f2850-da3f-4b35-bc5e-79c329adca57"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Complemento:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="372" y="313" width="178" height="15" uuid="609feb6e-70f7-4243-babe-9fa0d312e2ea"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{local_estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="330" width="276" height="15" uuid="a4283ed3-01cc-4ad5-9247-efa9bb37d5e5"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{local_bairro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="327" y="329" width="26" height="15" uuid="6b1911fc-3576-4948-8b9a-b6d6e3535f0f"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEP:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="353" y="329" width="197" height="15" uuid="63fa86c7-eb17-4761-a6bf-a2bfaeb61828"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{local_cep}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="299" width="65" height="15" uuid="ba0478c5-c7b0-4ae4-ac3a-3a1a4117cfbb"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Logradouro:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="299" width="45" height="15" uuid="97215970-e307-498f-9b0b-d13c024295fd"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="1" y="273" width="555" height="20" backcolor="#CCCCCC" uuid="0a54d34b-7ca3-42ca-8b89-64da23667e18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Local do Evento: " + $F{nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="133" width="17" height="15" uuid="a93fc4b9-bdbe-4573-a115-46a51314a02e"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[À:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="17" y="133" width="540" height="15" uuid="1d7b243c-4dc2-4ea6-89ce-11bd9d392172"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_cliente} + "      Att. Sr(a) "+$F{nome_contato}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="445" width="556" height="20" isRemoveLineWhenBlank="true" uuid="e82ff73d-ad52-4235-85ef-4e28c499e22d"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalhesevento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="1" y="422" width="555" height="15" isRemoveLineWhenBlank="true" backcolor="#CCCCCC" uuid="5e3139a4-e7fc-4dee-b102-a30585d4dfc6">
+					<printWhenExpression><![CDATA[$F{detalhesevento} != null && !$F{detalhesevento}.equals("")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detalhes do Evento]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement mode="Opaque" x="0" y="193" width="555" height="20" backcolor="#CCCCCC" uuid="8b3fd80f-5747-4ffa-b064-a3a6635cefa5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeevento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="1" y="490" width="553" height="30" uuid="79ed1649-fede-4a51-a745-08854d1757ab"/>
+				<text><![CDATA[Agradecemos antecipadamente a preferência pelos serviços da SNE. Conforme solicitado, apresentamos a proposta para locação dos equipamentos discriminados abaixo:]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="2" y="396" width="556" height="20" isRemoveLineWhenBlank="true" uuid="03bf183b-aca5-43f3-a42b-8c054dace413"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observacoes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT}==1]]></printWhenExpression>
+			<subreport>
+				<reportElement isPrintRepeatedValues="false" x="1" y="4" width="555" height="16" uuid="692e9d65-9c9e-4229-9181-5cf0f0301082">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{idos}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"orcamento_01_recursos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="82" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="513" y="65" width="40" height="16" uuid="d4dba524-2b77-464b-9b4f-d0455079c20e"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="65" width="80" height="16" uuid="14330266-d972-4486-9134-b184859091f3"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="8b432caa-e477-4539-aae1-795afa35a468">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[São Paulo  |  Rio de Janeiro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="15" width="555" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="ffb8b422-3915-448d-9335-4307a90b8166">
+					<property name="hyperlink" value=""/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Salvador  |  Recife  |  Fortaleza  |  Natal  | Maceió  |  João Pessoa]]></text>
+			</staticText>
+			<textField hyperlinkType="Reference">
+				<reportElement mode="Opaque" x="0" y="45" width="555" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="b8e227e1-0f07-4ef9-8c3a-487067d271d7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["WWW.GRUPOSNE.COM.BR"]]></textFieldExpression>
+				<anchorNameExpression><![CDATA["Grupo SNE"]]></anchorNameExpression>
+				<hyperlinkReferenceExpression><![CDATA["https://www.gruposne.com.br/"]]></hyperlinkReferenceExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="30" width="555" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="fd318b49-6ed4-4fb0-8c48-093f9af3fd64">
+					<property name="hyperlink" value=""/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Gramado | Foz do Iguaçu]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="224">
+			<image>
+				<reportElement x="0" y="0" width="555" height="224" uuid="85b1dee3-d7fc-420a-8d73-b4bbd57ea476">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{logos}]]></imageExpression>
+			</image>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="683" splitType="Prevent">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="123" y="115" width="430" height="15" isRemoveLineWhenBlank="true" uuid="1f6455ff-9a50-40e3-9deb-2a3de7fa9ee7"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{condicoes}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement positionType="Float" x="454" y="56" width="100" height="17" uuid="1399c42b-5cec-48bb-8e5f-d2a11ab93fd2">
+					<printWhenExpression><![CDATA[$F{desconto}.compareTo(new BigDecimal(0)) > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{desconto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="291" y="73" width="154" height="17" uuid="2b372891-a85c-493d-96dc-f8db4df962db"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement positionType="Float" x="454" y="39" width="100" height="17" uuid="892c61f1-a383-4b02-a43b-5ce9b5e0c126">
+					<printWhenExpression><![CDATA[$F{desconto}.compareTo(new BigDecimal(0)) > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{preco}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement positionType="Float" x="454" y="73" width="100" height="17" uuid="8408fdb4-238a-49cf-a922-f3f7f66e4306"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{preco_final}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="115" width="133" height="15" isRemoveLineWhenBlank="true" backcolor="#CCCCCC" uuid="9c98d779-5d53-4232-88e7-e2016c4d3cf1">
+					<printWhenExpression><![CDATA[$F{condicoes} != null && !$F{condicoes}.equals("")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Forma de Pagamento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="291" y="56" width="154" height="17" uuid="722e4d27-3637-4d86-b900-f4ab27c8b5c1">
+					<printWhenExpression><![CDATA[$F{desconto}.compareTo(new BigDecimal(0)) > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desconto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="291" y="39" width="154" height="17" uuid="3d5a7712-e3e8-4b22-bb18-c2759c795776">
+					<printWhenExpression><![CDATA[$F{desconto}.compareTo(new BigDecimal(0)) > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subtotal:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="1" y="17" width="555" height="21" uuid="43fe3833-5848-48f7-b67d-7777eefc4573"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Resumo do Evento]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="107" width="555" height="1" uuid="aa853596-5ddd-4349-ab60-39433cf71796"/>
+			</line>
+			<line>
+				<reportElement x="0" y="39" width="555" height="1" uuid="766e7099-d98e-41a9-9541-583db85a3350"/>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="210" width="555" height="23" uuid="275511b0-dea5-4c38-8cf7-46aac9bf4040">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• Esta proposta e quaisquer de seus anexos contém informações confidenciais e de uso exclusivo das partes envolvidas, sendo proibida a divulgação total ou parcial das mesmas para terceiros.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="1" y="184" width="555" height="20" uuid="9acfe348-ad9e-444c-8bfe-00e921fa1df3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Condições Gerais]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="435" width="555" height="39" uuid="a5198e5a-6c0e-40e8-a824-96dfc359ab63"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[EMPRESA OPTANTE PELO SIMPLES NACIONAL, DISPENSADO DE RETENÇÃO DE PIS, COFINS E SLH CONFORME INCISO III DO ARTIGO 32 DA LEI 10.833 DE 29/12/2003.
+EMPRESA DE LOCAÇÃO DE BENS MÓVEIS ISENTO DE ISS CONFORME LEI COMPLEMENTAR N° 166.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="482" width="555" height="16" uuid="674844c0-c284-4b56-b977-f8e3e670e3d7"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Ficamos à disposição para quaisquer esclarecimentos ou negociações que se fizerem necessárias.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="498" width="555" height="14" uuid="32bf3e50-ebb5-4232-b280-7dd410d5d57d"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Será um prazer atendê-los e poder contribuir para o sucesso do seu evento.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="512" width="555" height="16" uuid="df44ac48-37c8-474c-aeff-11da9281befb"/>
+				<textElement>
+					<font fontName="Arial" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Atenciosamente,
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="584" width="280" height="32" uuid="aa4b481f-1371-4117-b0f6-0c60f32f2f3e"/>
+				<textElement>
+					<font fontName="Arial" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[DE ACORDO:_____________________________________
+DATA:  _____ / _____ / __________         ]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="2" y="537" width="278" height="15" uuid="98dfff24-979c-4273-909d-c94d365e6ac2"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_proposta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="2" y="567" width="278" height="13" uuid="062f08c3-5fea-407f-9276-80994829f30b"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefone_proposta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="2" y="552" width="278" height="15" uuid="0b53b6fd-97a7-49e0-9d4b-0d18cab00e7d"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo_proposta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="234" width="555" height="35" uuid="39505fdc-db88-4e2f-b934-668812278ca9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• O Grupo SNE não se responsabiliza por eventuais arquivos armazenados em seus computadores, reservando-se do direito de excluí-los ao término do evento. Caso haja necessidade de gravação deverá ser comunicado com antecedência no momento da solicitação / negociação da proposta.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="269" width="555" height="23" uuid="fe8cf6a3-2a40-4d7c-9cdd-3cb01bfdc976">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• Caso haja necessidade de montagem na madrugada o custo com hospedagem e equipe técnica extra será por conta do contratante.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="291" width="555" height="12" uuid="b54be835-f9f4-43c7-8058-81c02e390d1b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• Montagem / desmontagem após as 21h, acarretará em cobrança extra conforme tabela em vigor.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="303" width="555" height="23" uuid="85a060d1-2989-412e-a3c9-b935552f1fb4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• Diária de equipe técnica representa 10h de trabalho. Horas excedentes serão cobradas após o evento conforme tabela em vigor.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="327" width="555" height="12" uuid="a44fad71-744d-4103-8898-2cfa9a90f9af">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• Validade da proposta: 10 dias.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="339" width="555" height="23" uuid="146c8d0f-ce63-4264-99f5-b39fc348a97e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• Essa proposta não garante reserva dos equipamentos e serviços. A confirmação será válida mediante assinatura de contrato e regularidade de condições de pagamento acordadas.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="362" width="555" height="23" uuid="655e2b58-4b12-40eb-92b0-86662334ad03"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• O valor total presente na proposta refere-se aos serviços e datas especificados, solicitações extras posteriores incidirão custos correspondentes e aditivo de contrato correspondente.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="385" width="555" height="23" uuid="8001c5ab-eb7c-4ba4-8e27-77738e3bb633"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• O Cancelamento somente será considerado sem ônus ao contratante caso ocorra no prazo de até 15 dias antes da montagem do evento. Após esse período incidirá em multa de 50% do valor total da proposta.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="420" width="555" height="12" uuid="2dfaa3a3-715b-47a6-8ebb-f5b3f1b74e75">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• Formas de pagamento: Transferência bancaria, boleto ou cartão de crédito.]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="282" y="552" width="271" height="15" uuid="608b486b-5faf-4983-b00b-f1e27ac7ab71"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo_proposta_c}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="282" y="537" width="271" height="15" uuid="7c1e4f49-4512-428e-a038-0321dca5b9c8"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_proposta_c}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="282" y="567" width="272" height="13" uuid="aaa69d74-f00c-4b15-89ea-1085c7e1147c"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefone_proposta_c}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="280" y="584" width="274" height="32" uuid="598f1116-4037-4027-8650-c0d2ef675b75">
+					<printWhenExpression><![CDATA[$F{venConId} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[DE ACORDO:_____________________________________
+DATA:  _____ / _____ / __________         ]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" isPrintRepeatedValues="false" x="-1" y="160" width="555" height="20" isRemoveLineWhenBlank="true" uuid="8b39e343-7b6a-418d-ab7a-37449dddaef5">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{idos}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"orcamento_01_terceirizados.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="139" width="555" height="20" uuid="924be70a-6d55-43de-ab15-576a4c930ba6">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[($F{tFornecedor}.compareTo(new BigDecimal(0)) > 0 && ($F{terEmp} || $F{terFor}))]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SERVIÇOS TERCEIRIZADOS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="291" y="92" width="263" height="13" uuid="58538f08-7554-460b-aa80-0471abe5c7a1"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[($F{tFornecedor}.compareTo(new BigDecimal(0)) >0)?(($F{terFor})? "(Não inclui os Serviços Terceirizados)":($F{terEmp}?"(Inclui os Serviços Terceirizados)":"")):""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="408" width="555" height="12" uuid="45e049c1-279d-4754-a7b3-0831a1895f36">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[• Condições de pagamento: 50% na confirmação do evento | 50% faturado para 15 dias após evento.]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

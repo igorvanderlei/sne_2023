@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="ContagemEstoque" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="dataContagem" />
+		<property name="deletado" />
+		<many-to-one name="funcionario" class="Funcionario" />
+		
+		<many-to-one name="grupo" class="Grupo" />
+		<many-to-one name="recurso" class="Recurso" />
+
+		<list name="equipamentosFaltantes" table="contagem_equipamento">
+			<key column="idContagemEstoque" />
+			<list-index column="indiceEquipamento" />
+			<many-to-many class="Equipamento" />
+		</list>
+	</class>
+</hibernate-mapping>

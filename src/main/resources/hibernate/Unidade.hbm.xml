@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="Unidade" lazy="true">
+		<id name="id">
+            <generator class="identity" />  
+		</id>
+
+		<property name="nome" />
+		<property name="razaoSocial" />
+		<property name="cnpj" />
+		<property name="inscricaoEstadual" />
+		<property name="imagemFormulario" type="string">
+			<column name="imagemFormulario" sql-type="text" />
+		</property>
+		<property name="imagemTela" type="string">
+			<column name="imagemTela" sql-type="text" />
+		</property>
+		<property name="codigo" />
+		<property name="deletado" />
+
+		<many-to-one name="endereco" class="Endereco" cascade="all"/>
+
+	</class>
+</hibernate-mapping>

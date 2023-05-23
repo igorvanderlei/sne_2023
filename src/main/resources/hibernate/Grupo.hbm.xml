@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="Grupo" lazy="true" dynamic-update="false" dynamic-insert="false">
+		<cache usage="nonstrict-read-write" />
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="nome" />
+		<property name="codigo" />
+		<property name="observacoes" />
+		<property name="deletado" />
+		
+
+		<property name="tipoRecurso" 
+			not-null="true"
+		 />
+
+	</class>
+</hibernate-mapping>

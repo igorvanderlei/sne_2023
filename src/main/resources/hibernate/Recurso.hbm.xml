@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="Recurso" lazy="true" dynamic-update="false" dynamic-insert="false">
+		<cache usage="nonstrict-read-write" />
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="nome" />
+		<property name="descricao" />
+		<property name="observacoes" />
+		<property name="precoSugerido" />
+		<property name="valorMinimo" />
+		<property name="codigo" />
+		<property name="deletado" />
+		<property name="precoCusto"></property>
+		<property name="calcularDiarias" type="boolean">
+			<column name="calcularDiarias" not-null="true"  default="false" />
+		</property>
+		
+		<many-to-one name="grupo" class="Grupo" lazy="false"  />
+
+		<joined-subclass name="Funcao" extends="Recurso" lazy="false" >
+			<key column="idRecurso" />
+		</joined-subclass>
+		
+		<joined-subclass name="DescricaoEquipamento" extends="Recurso" lazy="false" >
+			<key column="idRecurso" />
+		</joined-subclass>
+		
+	</class>
+</hibernate-mapping>

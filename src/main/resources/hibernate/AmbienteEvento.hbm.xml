@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">	
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="AmbienteEvento" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="nome" />
+		<property name="dataInicio"  type="date" />
+		<property name="dataFim"  type="date" />
+		<property name="descontoEquipamento"/>
+		<property name="descontoTerceirizado" />
+		<property name="descontoCenografia" />
+		
+	</class>
+</hibernate-mapping>

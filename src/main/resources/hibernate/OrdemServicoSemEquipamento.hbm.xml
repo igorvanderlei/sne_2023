@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean" >
+	<joined-subclass name="OrdemServicoSemEquipamento" lazy="true" extends="OrdemServico" >
+		<key column="id_ordem_servico" />
+		
+		<many-to-one name="ordemServicoEmergencial" class="OrdemServico" unique="true"/>
+	</joined-subclass>
+</hibernate-mapping>

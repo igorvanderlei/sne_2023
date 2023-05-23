@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="AlertaOSEmergencial" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="status" />
+		<many-to-one name="osEmergencial" class="OrdemServico" />
+		<many-to-one name="osSemEquipamento" class="OrdemServico" />
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="TipoUsuario" lazy="true">
+		<id name="id">
+			<generator class="identity" />
+		</id>
+
+		<property name="nome" />
+		<property name="deletado" />
+
+
+	<!-- 	<set name="permissao" table="permissao_tipousuario">
+			<key column="idTipoUsuario" />
+			<element column="permissao" not-null="true" 
+					type="org.hibernate.type.EnumType" />
+		</set> -->
+	</class>
+</hibernate-mapping>

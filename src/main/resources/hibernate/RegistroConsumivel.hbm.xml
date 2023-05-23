@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="RegistroConsumivel" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+		
+		<property name="quantidade" />
+		<property name="data" />
+		<many-to-one name="bem" class="BemConsumivel"  />
+		<many-to-one name="os" class="OrdemServico"  />
+		<many-to-one name="funcionarioEstoque" class="Funcionario"  />
+		<many-to-one name="funcionarioEvento" class="Funcionario"  />
+		
+	</class>
+</hibernate-mapping>

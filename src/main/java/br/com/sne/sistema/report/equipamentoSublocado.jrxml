@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="equipamento" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f68fb864-f720-4803-b3b8-4b5b17c4aa03">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="273"/>
+	<parameter name="id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="imagem" class="java.lang.Object"/>
+	<queryString>
+		<![CDATA[SELECT
+     equipamentosublocado.`dataInicio` AS equipamentosublocado_dataInicio,
+     equipamentosublocado.`dataFim` AS equipamentosublocado_dataFim,
+     fornecedor.`nome` AS fornecedor_nome,
+     equipamentosublocado.`equipamento_id` AS equipamentosublocado_equipamento_id,
+     grupo.`nome` AS grupo_nome,
+CASE equipamento.`status`
+  WHEN 0 THEN 'Disponível'
+  WHEN 1 THEN 'Locado'
+  WHEN 2 THEN 'Manutenção Preventiva'
+  WHEN 3 THEN 'Manutenção Corretiva'
+  WHEN 4 THEN 'Inativo'
+END AS equipamento_status,
+     unidade.`nome` AS unidade_nome,
+     equipamento.`data` AS equipamento_data,
+     equipamento.`observacoes` AS equipamento_observacoes,
+     recurso.`nome` AS recurso_nome,
+     recurso.`precoSugerido` AS recurso_precoSugerido,
+     equipamento.`modelo` AS equipamento_modelo,
+     equipamento.`marca` AS equipamento_marca,
+     equipamento.`numeroSerie` AS equipamento_numeroSerie
+FROM
+     `fornecedor` fornecedor INNER JOIN `equipamentosublocado` equipamentosublocado ON fornecedor.`id` = equipamentosublocado.`fornecedor`
+     INNER JOIN `equipamento` equipamento ON equipamentosublocado.`equipamento_id` = equipamento.`id`
+     INNER JOIN `grupo` grupo ON equipamento.`grupo` = grupo.`id`
+     INNER JOIN `unidade` unidade ON equipamento.`unidade` = unidade.`id`
+     INNER JOIN `recurso` recurso ON grupo.`id` = recurso.`grupo`
+WHERE equipamentosublocado.`equipamento_id` = $P{id}]]>
+	</queryString>
+	<field name="equipamentosublocado_dataInicio" class="java.sql.Timestamp"/>
+	<field name="equipamentosublocado_dataFim" class="java.sql.Timestamp"/>
+	<field name="fornecedor_nome" class="java.lang.String"/>
+	<field name="equipamentosublocado_equipamento_id" class="java.lang.Long"/>
+	<field name="grupo_nome" class="java.lang.String"/>
+	<field name="equipamento_status" class="java.lang.String"/>
+	<field name="unidade_nome" class="java.lang.String"/>
+	<field name="equipamento_data" class="java.sql.Timestamp"/>
+	<field name="equipamento_observacoes" class="java.lang.String"/>
+	<field name="recurso_nome" class="java.lang.String"/>
+	<field name="recurso_precoSugerido" class="java.lang.Float"/>
+	<field name="equipamento_modelo" class="java.lang.String"/>
+	<field name="equipamento_marca" class="java.lang.String"/>
+	<field name="equipamento_numeroSerie" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="138" splitType="Stretch">
+			<staticText>
+				<reportElement x="92" y="86" width="373" height="33" uuid="f6206269-a738-4838-bba8-e2a8fe5ca0a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Relatório de Equipamento Sublocado]]></text>
+			</staticText>
+			<image>
+				<reportElement x="1" y="0" width="554" height="66" uuid="d1c92668-87f5-4864-9863-5287fb1ab2ff"/>
+				<imageExpression><![CDATA[$P{imagem}]]></imageExpression>
+			</image>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="445" y="67" width="108" height="20" uuid="3397de74-c55a-4c7c-8287-db3fd5247f15"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="410" y="67" width="35" height="20" uuid="3b5bfe10-89c1-4b80-962e-f1c6cfcf073f"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Recife, ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="194" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="5" width="18" height="15" uuid="7a31ae7b-aca1-47af-acd9-f2e954b2656c"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="53" width="53" height="15" uuid="36544c19-1dbf-4441-a60f-fe5d73c761b4"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Recurso:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="37" width="45" height="15" uuid="73bdebc5-2bae-46f0-9ee4-fee617800bd4"/>
+				<textElement>
+					<font fontName="Arial" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Grupo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-2" y="152" width="76" height="20" uuid="51800e31-c6e0-46d0-b442-612cbf83f3e4"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observações:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="21" width="43" height="15" uuid="7bf17749-abd4-4fbc-9c91-bbee602439ad"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Preço:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="237" y="5" width="44" height="15" uuid="37d728d3-4001-4150-bf5e-98d14092d03a"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="21" width="52" height="15" uuid="19df61ad-ed81-45d8-a30c-6440897482e5"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº Série:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="37" width="43" height="15" uuid="4723d320-b943-48b3-a3de-7bff9e616509"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marca:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="53" width="43" height="15" uuid="1af75d1a-9767-47d6-8a0d-92ccfb8a138a"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modelo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="95" width="64" height="15" uuid="8bce2d12-843c-4cdd-a30b-2a0dbeb9e6a3"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fornecedor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="17" y="5" width="207" height="15" uuid="10587f63-1064-4fa3-8f86-986c80d644ea"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipamentosublocado_equipamento_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="37" width="179" height="15" uuid="f8d0cac1-8322-4e71-b38a-4b0a2c1098ea"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grupo_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="95" width="485" height="15" uuid="33851215-862a-4de5-9e72-21a8e1835470"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fornecedor_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="111" width="63" height="15" uuid="18851a6e-71da-46d7-ac7b-51fb6cd44fce"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Inicial:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="127" width="63" height="15" uuid="0d99226f-e9b2-47af-89fe-3c8d7f199a85"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Final:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="69" width="32" height="15" uuid="3510b703-7c90-449c-b2a8-d88a8242fd47"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="54" y="53" width="170" height="15" uuid="2b003906-2f0e-43db-8ce6-2f7626f96c3c"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recurso_nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="68" y="111" width="176" height="15" uuid="687276b4-b87f-42f8-b49b-612d9f576901"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipamentosublocado_dataInicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="68" y="127" width="176" height="15" uuid="dc948d7b-4152-4de5-a566-074ca61ec2fa"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipamentosublocado_dataFim}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="1" y="172" width="550" height="17" uuid="e34c60db-6350-4e8b-a872-acf752f7686a"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipamento_observacoes}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="31" y="69" width="193" height="15" uuid="e3250562-a1f9-402a-972b-357e134dc350"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipamento_data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="21" width="170" height="15" uuid="7d508fc3-33c7-4a23-92a0-711399320863"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recurso_precoSugerido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="53" y="21" width="171" height="15" uuid="89839cae-141e-4bb7-b638-f22e22e9abdd"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipamento_numeroSerie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="37" width="170" height="15" uuid="6d4284bd-c9b4-4230-8573-d079917d932a"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipamento_marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="53" width="170" height="15" uuid="3bb76d8b-18b0-4977-a7be-031af95c2a9d"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipamento_modelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="5" width="170" height="15" uuid="fe6b2017-d341-4f0a-ab32-76fcf0df735e"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipamento_status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="40" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

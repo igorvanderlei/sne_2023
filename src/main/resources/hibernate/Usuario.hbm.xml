@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+	
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="Usuario" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="login" />
+		<property name="password" />
+		<property name="observacoes" />
+		
+		<property name="tokenGoogle" type="string">
+			<column name="tokenGoogle" sql-type="text" />
+		</property>
+		
+		<property name="deletado" />
+
+		<many-to-one name="tipoUsuario" class="TipoUsuario" lazy="false"/>
+		<many-to-one name="funcionario" class="Funcionario" lazy="false"/>
+		<many-to-one name="unidade" class="Unidade" lazy="false"/>
+
+	</class>
+</hibernate-mapping>

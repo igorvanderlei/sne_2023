@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="Pauta" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="empresa" />
+		<property name="nomeEvento" />
+		<property name="data" />
+		<property name="fone" />
+		<property name="contato" />
+		<property name="proxContato"/>
+		<property name="deletado" />
+		<property name="localEvento" />
+		<property name="observacoes" type="string">
+			<column name="observacoes" sql-type="text" />
+		</property>
+		
+		<property name="email" />
+		
+		<property name="status" 
+			not-null="true"
+		 />
+		 
+		
+		<many-to-one name="funcionario" class="Funcionario"></many-to-one>
+		
+
+	</class>
+</hibernate-mapping>

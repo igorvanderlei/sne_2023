@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="ManutencaoCorretiva" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+		
+		<property name="dataManutencao" type="date"/>
+		<property name="dataDevolucao" type="date"/>
+		<property name="previsaoDevolucao" type="date"/>
+		<property name="descricaoProblema" />
+		<property name="parecerTecnico" />
+		<property name="status" />
+		<property name="telefoneAssistencia" />
+		<property name="nomeAssistencia" />
+		<property name="deletado" />
+		
+		<many-to-one name="funcionario" class="Funcionario" />
+		<many-to-one name="equipamento" class="Equipamento" />
+		<many-to-one name="enderecoAssistencia" class="Endereco" cascade="all" />
+
+	</class>
+</hibernate-mapping>

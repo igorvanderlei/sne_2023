@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="RecursoTerceirizado" lazy="true" dynamic-update="false" dynamic-insert="false">
+		<cache usage="nonstrict-read-write" />
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="nome" />
+		<property name="descricao" />
+		<property name="observacoes" />
+		<property name="precoEmpresa" />
+		<property name="precoFornecedor" />
+		<property name="codigo" />
+		<property name="deletado" />
+		
+		<property name="calcularDiarias" type="boolean">
+			<column name="calcularDiarias" not-null="true"  default="false" />
+		</property>
+		
+		<many-to-one name="grupo" class="Grupo"/>
+		
+		<many-to-one name="fornecedorTerceirizado" class="FornecedorTerceirizado"/>
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clienteAtualizado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b0265862-9a53-457f-8841-29013ba8ef0c">
+	<property name="ireport.zoom" value="1.0245201830476058"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="imagem" class="java.lang.Object"/>
+	<queryString>
+		<![CDATA[select *, CASE c.status
+  WHEN 0 THEN 'Pendente'
+  WHEN 1 THEN 'Ativo'
+  WHEN 2 THEN 'Recusado'
+  WHEN 3 THEN 'Inativo'
+END as statusq
+from cliente c
+where c.dataUltimaAlteracao <= current_date - interval '6 month']]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="cnpj" class="java.lang.String"/>
+	<field name="fone" class="java.lang.String"/>
+	<field name="contato" class="java.lang.String"/>
+	<field name="ramal" class="java.lang.String"/>
+	<field name="observacoes" class="java.lang.String"/>
+	<field name="celular" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="dataultimaalteracao" class="java.sql.Timestamp"/>
+	<field name="deletado" class="java.lang.Boolean"/>
+	<field name="status" class="java.lang.Integer"/>
+	<field name="endereco" class="java.lang.Long"/>
+	<field name="funcionario" class="java.lang.Long"/>
+	<field name="unidade" class="java.lang.Long"/>
+	<field name="statusq" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="146" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="85" width="554" height="21" uuid="68c6fa9a-1b57-4c16-97ba-a29c04438164"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Listagem de Clientes com Cadastro Desatualizado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="125" width="15" height="20" uuid="8fb895fb-98b8-45ca-9396-9000ae531218"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="126" width="38" height="20" uuid="ae7e6aff-eb58-4e64-a22c-a352834f7369"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="256" y="126" width="38" height="20" uuid="5ad2afbf-7e3d-4113-9220-0c0c842a2519"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CNPJ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="356" y="126" width="53" height="20" uuid="1d66fee2-5308-4a7d-82f3-933c0b4c6069"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="446" y="126" width="105" height="20" uuid="5fbdcf78-d9be-405a-bfec-3e2cfcbb0c2c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Atualização]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="144" width="555" height="1" uuid="f65ef073-49cc-4e30-bea8-5cd64884db9a"/>
+				<graphicElement>
+					<pen lineWidth="1.25"/>
+				</graphicElement>
+			</line>
+			<image>
+				<reportElement x="0" y="0" width="555" height="72" uuid="efcdd811-8563-4d7e-bd00-033c9625d2c4"/>
+				<imageExpression><![CDATA[$P{imagem}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="27" height="15" uuid="f4b8ed95-19dc-464a-9ea5-2bde44b60275"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="33" y="0" width="218" height="15" uuid="2a8034bd-687b-4e59-a0a5-0371f35081b9"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="256" y="0" width="94" height="15" uuid="809a88df-4ec5-4586-a97e-3ae9e03d4472"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cnpj}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="446" y="0" width="105" height="15" uuid="8f46f529-f266-4fc4-8cf1-df0f488d1c20"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataultimaalteracao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="356" y="0" width="83" height="15" uuid="b0ed740b-061d-4449-8c60-13336286c682"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{statusq}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="16" width="555" height="1" uuid="57f46fb2-d1d5-4959-810e-88379b2110ea"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="449" y="5" width="100" height="20" uuid="1f09751d-578a-46f0-a594-196f0c0303f3"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="218" y="5" width="80" height="20" uuid="e901c6dd-b017-48c4-be44-4ef345030a5f"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="298" y="5" width="40" height="20" uuid="8e95e848-5fc5-4600-bf4d-4a35774d054f"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

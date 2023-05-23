@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ordemServico2" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isSummaryWithPageHeaderAndFooter="true" uuid="622377ac-cf1d-4ddf-871b-b3c1b39cbf5c">
+	<property name="ireport.zoom" value="1.1269722013523664"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="400"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#8FCCCC">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFE6E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#9D9DAE">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#E6E6FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#F8F8FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="RecursosTerceirizados" uuid="98b49c90-014e-4f83-abfa-5d11cd81706f">
+		<parameter name="id_orcamento" class="java.lang.Long"/>
+		<parameter name="id_ambiente" class="java.lang.Long"/>
+		<parameter name="totalForn" class="java.lang.Float"/>
+		<queryString>
+			<![CDATA[SELECT
+  recursoterceirizadosolicitado.descricao as nome,
+  recursoterceirizadosolicitado.quantidade as quantidade,
+
+  recursoterceirizadosolicitado.precoEmpresa as precoEmpresa,
+  CASE when recursoterceirizado.calculardiarias THEN (recursoterceirizadosolicitado.precoEmpresa * diarias * quantidade )
+       ELSE (recursoterceirizadosolicitado.precoEmpresa * quantidade)
+  END as subtotalEmpresa,
+
+  recursoterceirizado.precoFornecedor as precoFornecedor,
+  CASE when recursoterceirizado.calculardiarias THEN (recursoterceirizadosolicitado.precoFornecedor * diarias * quantidade )
+       ELSE (recursoterceirizadosolicitado.precoFornecedor * quantidade )
+  END as subtotalFornecedor,
+
+  diarias,
+
+  recursoterceirizado.calculardiarias as calcularD,
+
+  totalEmpresa,
+  totalFornecedor,
+  grupo,
+  grupo.nome as nome_grupo,
+  amb.nome as amb_nome,
+  amb.dataInicio as amb_dti,
+  amb.dataFim as amb_dtf
+
+FROM
+	recursoterceirizadosolicitado, grupo, recursoterceirizado, ambienteevento as amb ,
+	(SELECT sum(subtotalempresa) as totalEmpresa, sum(subtotalfornecedor) as totalFornecedor
+		FROM ( SELECT
+			CASE when recursoterceirizado.calculardiarias = true THEN (recursoterceirizadosolicitado.precoEmpresa * diarias * quantidade )
+			ELSE (recursoterceirizadosolicitado.precoEmpresa * quantidade)
+			END as subtotalEmpresa,
+
+			CASE when recursoterceirizado.calculardiarias = true THEN (recursoterceirizadosolicitado.precoFornecedor * diarias * quantidade )
+			ELSE (recursoterceirizadosolicitado.precoFornecedor * quantidade )
+			END as subtotalFornecedor
+
+			FROM recursoterceirizadosolicitado, recursoterceirizado
+
+			WHERE
+				recursoterceirizadosolicitado.recurso = recursoterceirizado.id
+				and recursoterceirizadosolicitado.idOrcamento = $P{id_orcamento}
+				and ambiente =  $P{id_ambiente}
+		    ) as total
+	) as totalll
+
+WHERE
+	recursoterceirizadosolicitado.recurso = recursoterceirizado.id
+	and recursoterceirizadosolicitado.idOrcamento = $P{id_orcamento}
+	and ambiente =  $P{id_ambiente}
+	and recursoterceirizadosolicitado.ambiente = amb.id
+        and recursoterceirizado.grupo = grupo.id
+ORDER BY grupo.id asc,recursoterceirizadosolicitado.id asc]]>
+		</queryString>
+		<field name="nome" class="java.lang.String"/>
+		<field name="precoFornecedor" class="java.lang.Float"/>
+		<field name="diarias" class="java.lang.Integer"/>
+		<field name="subtotalFornecedor" class="java.lang.Float"/>
+		<field name="subtotalEmpresa" class="java.lang.Float"/>
+		<field name="amb_nome" class="java.lang.String"/>
+		<field name="amb_dti" class="java.util.Date"/>
+		<field name="amb_dtf" class="java.util.Date"/>
+		<field name="grupo" class="java.lang.Integer"/>
+		<field name="nome_grupo" class="java.lang.String"/>
+		<field name="quantidade" class="java.lang.Integer"/>
+		<field name="totalEmpresa" class="java.lang.Float"/>
+		<field name="totalFornecedor" class="java.lang.Float"/>
+		<field name="calcularD" class="java.lang.Boolean"/>
+		<field name="precoEmpresa" class="java.lang.Float"/>
+		<variable name="totalTerceirizados" class="java.lang.Float" calculation="Sum">
+			<variableExpression><![CDATA[$F{diarias}]]></variableExpression>
+		</variable>
+		<group name="group1">
+			<groupExpression><![CDATA[$F{grupo}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\workspace\\projeto2\\br\\com\\nordesti\\locav\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+	o.precoterceirizado as orcTer, o.terceirizadoempresa as terEmp, o.subtotalTerceirizadoEmpresa as totalEmp, o.subtotalTerceirizadoForn as tFornecedor, o.id as idOS, o.dataInicio as dataInicioOS, o.dataFim as dataFimOS, o.nomeEvento,  o.observacoes as observacoesOS, f.id as id_funcionario, f.nome as nome_funcionario, c.id as id_cliente,  c.nome as nome_cliente, c.contato as nome_contato, le.nome , end_le.logradouro as local_logradouro,
+	end_le.numero as local_numero, end_le.complemento as local_complemento, end_le.bairro as local_bairro,
+	end_le.cidade as local_cidade, o.terceirizadofornecedor as terFor,
+	end_le.cep as local_cep, end_le.estado as local_estado, end_le.pontoreferencia as loca_ponto_referencia, o.datamontagem, o.horainicio, o.horafim, o.horamontagem, c.fone, c.email,
+	o.observacoesCliente as observacoes, o.condicoesPagamento as condicoes, f.celular as celular_funcionario, amb.nome as nome_ambiente, amb.id as id_ambiente, o.desconto as desconto,
+	o.preco as preco, (preco - o.desconto) as preco_final, o.nomeProposta as nome_proposta, o.nomePropostaConjunta as nome_proposta_c,
+	o.telefoneproposta as telefone_proposta,o.telefonepropostaConjunta as telefone_proposta_c, o.cargoproposta as cargo_proposta,o.cargopropostaconjunta as cargo_proposta_c, o.detalhesevento,
+	vc.id as venConId
+FROM
+	orcamento o
+		left join funcionario vc on (vc.id = o.vendedorconjunto)
+		left join funcionario f on (f.id = o.funcionario)
+		left join cliente c on (c.id = o.cliente)
+		left join localevento le on (le.id = o.local)
+		left join endereco end_le on ( end_le.id = le.endereco)
+		left join ambienteevento amb on amb.idorcamento = o.id
+WHERE
+	o.id = $P{id}
+GROUP BY
+	nome_ambiente, o.id, o.dataInicio, o.dataFim, o.nomeEvento,  o.observacoes, f.id, f.nome, c.id,
+	c.nome, le.nome , end_le.logradouro, end_le.numero, end_le.complemento, end_le.bairro, end_le.cidade,
+	end_le.cep , end_le.estado , end_le.pontoreferencia, o.datamontagem, o.horainicio, o.horafim,
+	o.horamontagem, c.fone, c.email, o.observacoesCliente , o.condicoesPagamento, f.celular, amb.id,
+	o.desconto, o.preco, preco_final, o.nomeProposta, o.telefoneproposta, o.cargoproposta, c.contato, o.detalhesevento,vc.id]]>
+	</queryString>
+	<field name="idos" class="java.lang.Long"/>
+	<field name="datainicioos" class="java.sql.Date"/>
+	<field name="datafimos" class="java.sql.Date"/>
+	<field name="nomeevento" class="java.lang.String"/>
+	<field name="venConId" class="java.lang.Long"/>
+	<field name="observacoesos" class="java.lang.String"/>
+	<field name="id_funcionario" class="java.lang.Long"/>
+	<field name="nome_funcionario" class="java.lang.String"/>
+	<field name="id_cliente" class="java.lang.Long"/>
+	<field name="nome_cliente" class="java.lang.String"/>
+	<field name="nome_contato" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="local_logradouro" class="java.lang.String"/>
+	<field name="local_numero" class="java.lang.String"/>
+	<field name="local_complemento" class="java.lang.String"/>
+	<field name="local_bairro" class="java.lang.String"/>
+	<field name="local_cidade" class="java.lang.String"/>
+	<field name="local_cep" class="java.lang.String"/>
+	<field name="local_estado" class="java.lang.String"/>
+	<field name="loca_ponto_referencia" class="java.lang.String"/>
+	<field name="datamontagem" class="java.sql.Timestamp"/>
+	<field name="horainicio" class="java.sql.Time"/>
+	<field name="horafim" class="java.sql.Time"/>
+	<field name="horamontagem" class="java.sql.Time"/>
+	<field name="fone" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="observacoes" class="java.lang.String"/>
+	<field name="condicoes" class="java.lang.String"/>
+	<field name="celular_funcionario" class="java.lang.String"/>
+	<field name="nome_ambiente" class="java.lang.String"/>
+	<field name="id_ambiente" class="java.lang.Long"/>
+	<field name="desconto" class="java.math.BigDecimal"/>
+	<field name="preco" class="java.math.BigDecimal"/>
+	<field name="preco_final" class="java.math.BigDecimal"/>
+	<field name="nome_proposta" class="java.lang.String"/>
+	<field name="telefone_proposta" class="java.lang.String"/>
+	<field name="cargo_proposta" class="java.lang.String"/>
+	<field name="detalhesevento" class="java.lang.String"/>
+	<field name="totalEmp" class="java.math.BigDecimal"/>
+	<field name="tFornecedor" class="java.math.BigDecimal"/>
+	<field name="terEmp" class="java.lang.Boolean"/>
+	<field name="terFor" class="java.lang.Boolean"/>
+	<field name="orcTer" class="java.math.BigDecimal"/>
+	<field name="nome_proposta_c" class="java.lang.String"/>
+	<field name="telefone_proposta_c" class="java.lang.String"/>
+	<field name="cargo_proposta_c" class="java.lang.String"/>
+	<detail>
+		<band height="20" splitType="Immediate">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[$F{terEmp}]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table 3" style="table 2_TH" stretchType="RelativeToBandHeight" x="0" y="0" width="555" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="cc1a48e0-99d2-487f-9a6b-872f9613542a">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$F{terEmp}]]></printWhenExpression>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="RecursosTerceirizados" uuid="966f3e34-f3bd-453e-a6df-a8c652cb8262">
+						<datasetParameter name="id_orcamento">
+							<datasetParameterExpression><![CDATA[$F{idos}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="id_ambiente">
+							<datasetParameterExpression><![CDATA[$F{id_ambiente}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="554" uuid="890c1657-25a5-4bc3-9bb5-f4f5d1148cf8">
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="15" width="554" height="15" isPrintInFirstWholeBand="true" backcolor="#EEEEEE" uuid="dec95b71-7f14-43d8-bf27-ba873bdf8036"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[    QUANT     DESCRIÇÃO                                                                             DIAS             UNIT                      TOTAL              ]]></text>
+							</staticText>
+							<textField>
+								<reportElement mode="Opaque" x="0" y="0" width="554" height="15" forecolor="#FFFFFF" backcolor="#000000" uuid="3519754c-1df6-4de8-88ac-84e6a7bd731c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{amb_nome} + " PELA SNE - PERÍODO: " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{amb_dti}) + " à " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{amb_dtf})]]></textFieldExpression>
+							</textField>
+						</jr:columnHeader>
+						<jr:column width="60" uuid="6515df65-6f2d-476a-95b3-27d011501078">
+							<jr:tableFooter height="20" rowSpan="1"/>
+							<jr:groupHeader groupName="group1">
+								<jr:cell height="16" rowSpan="1">
+									<staticText>
+										<reportElement mode="Opaque" x="0" y="0" width="60" height="16" backcolor="#EEEEEE" uuid="aa46cfd8-4490-49b9-9672-8621014a9132"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial" isBold="true"/>
+										</textElement>
+										<text><![CDATA[]]></text>
+									</staticText>
+								</jr:cell>
+							</jr:groupHeader>
+							<jr:detailCell height="17" rowSpan="1">
+								<textField pattern="###0">
+									<reportElement x="0" y="0" width="60" height="17" uuid="ac0814af-d326-4170-9c0f-61ac47143e26"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:columnGroup width="386" uuid="a7d03d24-1804-4df8-a2f9-ea0b8c6932ba">
+							<jr:tableFooter height="20" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="386" height="20" uuid="b95d7c0d-613a-402c-939a-9b8491505cb2"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font fontName="Arial" size="10" isBold="true"/>
+									</textElement>
+									<text><![CDATA[TERCEIROS - PELA SNE:  ]]></text>
+								</staticText>
+							</jr:tableFooter>
+							<jr:column width="258" uuid="bcf576b7-b251-4a9d-9e7c-67cc7bac725d">
+								<jr:groupHeader groupName="group1">
+									<jr:cell height="16" rowSpan="1">
+										<textField>
+											<reportElement mode="Opaque" x="0" y="0" width="258" height="16" backcolor="#EEEEEE" uuid="6442cb8a-6ef2-4e7b-a292-f301b1f434e1"/>
+											<textElement verticalAlignment="Middle">
+												<font fontName="Arial" isBold="true"/>
+											</textElement>
+											<textFieldExpression><![CDATA[$F{nome_grupo}]]></textFieldExpression>
+										</textField>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell height="17" rowSpan="1">
+									<textField textAdjust="StretchHeight">
+										<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="258" height="17" uuid="20073e02-fa23-49aa-8b7f-dbf41a9fa705"/>
+										<textElement verticalAlignment="Middle">
+											<font fontName="Arial"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="52" uuid="5f302b12-00e1-4698-8734-49e56211b0e1">
+								<jr:groupHeader groupName="group1">
+									<jr:cell height="16" rowSpan="1">
+										<staticText>
+											<reportElement mode="Opaque" x="0" y="0" width="52" height="16" backcolor="#EEEEEE" uuid="1b9d2178-e8c5-4078-887c-0a83ced3cc35"/>
+											<text><![CDATA[]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell height="17" rowSpan="1">
+									<textField pattern="">
+										<reportElement x="0" y="0" width="52" height="17" uuid="8831de88-5355-41d3-8aca-5853b394c585"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{diarias}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="76" uuid="deb0708c-352b-4112-9630-9b7f10bd9a7f">
+								<jr:groupHeader groupName="group1">
+									<jr:cell height="16" rowSpan="1">
+										<staticText>
+											<reportElement mode="Opaque" x="0" y="0" width="76" height="16" isPrintInFirstWholeBand="true" backcolor="#EEEEEE" uuid="8c17b7e7-a518-4129-b333-74660d133ef8"/>
+											<textElement textAlignment="Center" verticalAlignment="Middle">
+												<font fontName="Arial" isBold="true"/>
+											</textElement>
+											<text><![CDATA[]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell height="17" rowSpan="1">
+									<textField pattern="¤ #,##0.00">
+										<reportElement x="0" y="0" width="76" height="17" uuid="d7be0411-74f3-41ed-901b-827ae9a228e3"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{precoEmpresa}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+						</jr:columnGroup>
+						<jr:column width="108" uuid="4ecf0ff0-b0fd-4d31-a2ea-bde4cbe95e62">
+							<jr:tableFooter height="20" rowSpan="1">
+								<textField evaluationTime="Report" pattern="¤ #,##0.00">
+									<reportElement x="0" y="0" width="108" height="20" uuid="daa5260c-81c6-48a7-892b-1226b625151c"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial" size="10" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{totalEmpresa}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:groupHeader groupName="group1">
+								<jr:cell height="16" rowSpan="1">
+									<staticText>
+										<reportElement mode="Opaque" x="0" y="0" width="108" height="16" isPrintInFirstWholeBand="true" backcolor="#EEEEEE" uuid="432e5b42-dac4-4f9d-b89d-db4b17ccd7b4"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial" isBold="true"/>
+										</textElement>
+										<text><![CDATA[]]></text>
+									</staticText>
+								</jr:cell>
+							</jr:groupHeader>
+							<jr:detailCell height="17" rowSpan="1">
+								<textField pattern="¤ #,##0.00">
+									<reportElement x="0" y="0" width="108" height="17" uuid="e47d9ef1-19f6-4339-a2f5-31d1adf3e41a"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{subtotalEmpresa}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="20" splitType="Immediate">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[$F{terFor}]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table 1" style="table 2" stretchType="RelativeToBandHeight" x="0" y="0" width="555" height="16" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="14d4511c-9aed-4ef9-85b3-5b4a74e9251a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$F{terFor}]]></printWhenExpression>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="RecursosTerceirizados" uuid="29b20a99-326a-427f-8992-90cbf2bca5b3">
+						<datasetParameter name="id_orcamento">
+							<datasetParameterExpression><![CDATA[$F{idos}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="id_ambiente">
+							<datasetParameterExpression><![CDATA[$F{id_ambiente}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="totalForn">
+							<datasetParameterExpression><![CDATA[$F{tFornecedor}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="554" uuid="3fc70a8c-1144-413c-972a-8282dbe39181">
+						<jr:columnHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="15" width="554" height="15" isPrintInFirstWholeBand="true" backcolor="#EEEEEE" uuid="f183faed-67f3-4a61-ac99-9a0cc94e71ab"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[    QUANT     DESCRIÇÃO                                                                             DIAS             UNIT                      TOTAL              ]]></text>
+							</staticText>
+							<textField>
+								<reportElement mode="Opaque" x="0" y="0" width="554" height="15" forecolor="#FFFFFF" backcolor="#000000" uuid="4fb37e33-f9ec-4333-b419-da10f8848e39"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{amb_nome} + " DIRETO COM FORNECEDOR - PERÍODO: " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{amb_dti}) + " à " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{amb_dtf})]]></textFieldExpression>
+							</textField>
+						</jr:columnHeader>
+						<jr:column width="60" uuid="eb94b393-27f4-4445-bd3d-db8a113e3a5e">
+							<jr:tableFooter height="20" rowSpan="1"/>
+							<jr:groupHeader groupName="group1">
+								<jr:cell height="16" rowSpan="1">
+									<staticText>
+										<reportElement mode="Opaque" x="0" y="0" width="60" height="16" backcolor="#EEEEEE" uuid="423bc2b0-ac0c-42a9-bf62-8005cfa52049"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial" isBold="true"/>
+										</textElement>
+										<text><![CDATA[]]></text>
+									</staticText>
+								</jr:cell>
+							</jr:groupHeader>
+							<jr:detailCell height="17" rowSpan="1">
+								<textField pattern="###0">
+									<reportElement x="0" y="0" width="60" height="17" uuid="23c6f869-09a2-42b5-854a-dece2be0315e"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:columnGroup width="386" uuid="e365c6bc-05f9-4b59-84aa-f072cbddbef0">
+							<jr:tableFooter height="20" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="386" height="20" uuid="ea4bb816-50bc-4917-b000-a5f9be0cec48"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font fontName="Arial" size="10" isBold="true"/>
+									</textElement>
+									<text><![CDATA[TERCEIROS - PAGTO DIRETO COM O FORNECEDOR:  ]]></text>
+								</staticText>
+							</jr:tableFooter>
+							<jr:column width="258" uuid="48c43e6e-ab20-4e06-bec5-dfa738f6364d">
+								<jr:groupHeader groupName="group1">
+									<jr:cell height="16" rowSpan="1">
+										<textField>
+											<reportElement mode="Opaque" x="0" y="0" width="258" height="16" backcolor="#EEEEEE" uuid="f5813f57-9c31-4dac-b00c-b1596addb6ed"/>
+											<textElement verticalAlignment="Middle">
+												<font fontName="Arial" isBold="true"/>
+											</textElement>
+											<textFieldExpression><![CDATA[$F{nome_grupo}]]></textFieldExpression>
+										</textField>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell height="17" rowSpan="1">
+									<textField textAdjust="StretchHeight">
+										<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="258" height="17" uuid="d38d7809-624e-4d35-b880-3eb66f8724b2"/>
+										<textElement verticalAlignment="Middle">
+											<font fontName="Arial"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="52" uuid="49746703-2e63-4b01-b0be-93e6029f75fe">
+								<jr:groupHeader groupName="group1">
+									<jr:cell height="16" rowSpan="1">
+										<staticText>
+											<reportElement mode="Opaque" x="0" y="0" width="52" height="16" backcolor="#EEEEEE" uuid="3e45fc6c-5a2e-4d12-a382-3fb665a8343a"/>
+											<text><![CDATA[]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell height="17" rowSpan="1">
+									<textField pattern="">
+										<reportElement x="0" y="0" width="52" height="17" uuid="e7f2a2cb-8bb1-48e1-8463-d36bd0914db9"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{diarias}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="76" uuid="d77b4cf0-9a88-4279-bfcc-6dbad87d0765">
+								<jr:groupHeader groupName="group1">
+									<jr:cell height="16" rowSpan="1">
+										<staticText>
+											<reportElement mode="Opaque" x="0" y="0" width="76" height="16" isPrintInFirstWholeBand="true" backcolor="#EEEEEE" uuid="c5476936-a603-4e3c-b9e7-7669f88d7148"/>
+											<textElement textAlignment="Center" verticalAlignment="Middle">
+												<font fontName="Arial" isBold="true"/>
+											</textElement>
+											<text><![CDATA[]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell height="17" rowSpan="1">
+									<textField pattern="¤ #,##0.00">
+										<reportElement x="0" y="0" width="76" height="17" uuid="e7cb372d-5b17-40eb-a0a4-77ea90c831e4"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{precoFornecedor}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+						</jr:columnGroup>
+						<jr:column width="108" uuid="82ea85d5-09cd-4a55-bdcf-dd9d2a7f9796">
+							<jr:tableFooter height="20" rowSpan="1">
+								<textField evaluationTime="Report" pattern="¤ #,##0.00">
+									<reportElement x="0" y="0" width="108" height="20" uuid="01e9faef-9624-4f68-8743-d10e04d7f3d4"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial" size="10" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{totalFornecedor}]]></textFieldExpression>
+								</textField>
+							</jr:tableFooter>
+							<jr:groupHeader groupName="group1">
+								<jr:cell height="16" rowSpan="1">
+									<staticText>
+										<reportElement mode="Opaque" x="0" y="0" width="108" height="16" isPrintInFirstWholeBand="true" backcolor="#EEEEEE" uuid="8da09d02-d9e4-454b-8d67-35ddb3ba7302"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Arial" isBold="true"/>
+										</textElement>
+										<text><![CDATA[]]></text>
+									</staticText>
+								</jr:cell>
+							</jr:groupHeader>
+							<jr:detailCell height="17" rowSpan="1">
+								<textField pattern="¤ #,##0.00">
+									<reportElement x="0" y="0" width="108" height="17" uuid="041949a3-b827-4e17-ac9d-5f6ef9969272"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Arial"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{subtotalFornecedor}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>

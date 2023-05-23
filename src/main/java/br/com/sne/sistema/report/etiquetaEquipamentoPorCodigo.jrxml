@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="etiquetas" pageWidth="283" pageHeight="85" orientation="Landscape" columnWidth="283" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="90f5b3e0-82a4-4902-a8b6-6f47be43e16b">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<subDataset name="dataset1" uuid="ca54128a-2da5-48f8-bde5-8f8c366fe5d9"/>
+	<parameter name="id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.lang.Object"/>
+	<queryString>
+		<![CDATA[SELECT
+     equipamento.marca AS equipamento_marca,
+     equipamento.modelo AS equipamento_modelo,
+     equipamento.numeroSerie AS equipamento_numeroSerie,
+     recurso.nome as equipamento_descricao
+FROM
+     equipamento equipamento left JOIN equipamentosublocado equipamentosublocado
+ON equipamento.id = equipamentosublocado.equipamento_id, recurso recurso
+WHERE
+     equipamento.id = $P{id}
+     and recurso.id = equipamento.descricaoequipamento
+--	and equipamentosublocado.equipamento_id IS NULL
+	and equipamento.status <> 4]]>
+	</queryString>
+	<field name="equipamento_marca" class="java.lang.String"/>
+	<field name="equipamento_modelo" class="java.lang.String"/>
+	<field name="equipamento_descricao" class="java.lang.String"/>
+	<field name="equipamento_numeroserie" class="java.lang.String"/>
+	<variable name="Titulo" class="java.lang.String"/>
+	<detail>
+		<band height="85" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<elementGroup/>
+			<textField>
+				<reportElement x="60" y="8" width="213" height="20" uuid="950a5d82-3300-4b57-b89a-af4721d400cc"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipamento_descricao}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="0" y="42" width="283" height="20" uuid="fac69723-8b1c-4200-822c-d2b1f997b321">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.barHeight" value="px"/>
+				</reportElement>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128" drawText="false" checksumRequired="false" barWidth="2" barHeight="20">
+					<jr:codeExpression><![CDATA[$F{equipamento_numeroserie}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement x="0" y="65" width="283" height="14" uuid="6d10b08b-be26-4dfc-95c4-fd596e304e5b">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipamento_numeroserie}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="5" y="5" width="50" height="25" uuid="cd66838e-4baa-4aba-940a-cca0af557b41">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>

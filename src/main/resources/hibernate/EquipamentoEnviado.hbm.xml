@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="EquipamentoEnviado" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="status" />
+		<property name="dataSaida" />
+		<property name="dataDevolucao" />
+		<property name="deletado" />
+
+		<many-to-one name="equipamento" class="Equipamento" lazy="false" />
+		<many-to-one name="usuario" class="Usuario" />
+		<many-to-one name="funcionarioEntrega" class="Funcionario" />
+		<many-to-one name="funcionarioDevolucao" class="Funcionario" />
+		<many-to-one name="funcionarioRecolhimento" class="Funcionario" />
+
+	</class>
+</hibernate-mapping>

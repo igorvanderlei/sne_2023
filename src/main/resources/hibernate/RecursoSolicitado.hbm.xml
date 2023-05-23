@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="RecursoSolicitado" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="dataInicio" />
+		<property name="dataFim" />
+		<property name="precoUnitario" />
+		<property name="precoCusto" />
+		<property name="quantidade" />
+		<property name="diarias" />
+		<property name="subTotal" />
+		<property name="deletado" />
+		<property name="descricao" />
+
+		<many-to-one name="recurso" class="Recurso" lazy="false"/>
+		<many-to-one name="ambiente" class="AmbienteEvento" />
+
+	</class>
+</hibernate-mapping>

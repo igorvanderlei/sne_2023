@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="OsDePassagem" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+		<property name="data" type="date" />
+		<many-to-one name="origem" class="OrdemServico" />
+		<many-to-one name="destino" class="OrdemServico" />
+		<many-to-one name="funcionario" class="Funcionario" />
+		<property name="deletado" />
+
+		<list name="equipamentoEnviado">
+			<key column="idOrdemServicoPassagem" />
+			<list-index column="indiceEquipamentoEnviadoPassagem" />
+			<one-to-many class="EquipamentoEnviado" />
+		</list>
+
+	</class>
+</hibernate-mapping>

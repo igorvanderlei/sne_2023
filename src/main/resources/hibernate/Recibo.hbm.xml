@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="Recibo" lazy="true">
+		<id name="id">
+            <generator class="identity" />  
+		</id>
+
+		<property name="imagemRecibo" type="string">
+			<column name="imagemRecibo" sql-type="text" />
+		</property>
+		<property name="cancelado"/>
+		
+		<many-to-one name="despesa" class="Despesa" cascade="all"/>
+		<many-to-one name="receita" class="Receita" cascade="all"/>
+
+
+	</class>
+</hibernate-mapping>

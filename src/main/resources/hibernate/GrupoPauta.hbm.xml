@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="GrupoPauta" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="titulo"/>
+		<property name="dataCadastro" type="timestamp"/>
+		
+		<property name="deletado">
+			<column name="deletado" default="false" />
+		</property>		
+		 
+		<many-to-one name="funcionario" class="Funcionario" />
+
+		<list name="pautas" cascade="all-delete-orphan">
+			<key column="idGrupoPauta" />
+			<list-index column="indiceGrupoPauta" />
+			<one-to-many class="Pauta" />
+		</list>
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="OrdemServico" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="nomeProposta" />
+		
+		<property name="nomePropostaConjunta" />
+		<property name="cargoPropostaConjunta" />
+		<property name="telefonePropostaConjunta" />
+		
+		<property name="totalAgencia" />
+		<property name="vencimentoAgencia" />
+		<property name="percentualAgencia">
+			<column name="percentualAgencia" default="0"/>
+		</property>
+		<property name="precoIntegralAgencia">
+			<column name="precoIntegralAgencia" default="true"/>
+		</property>
+		
+		<property name="gerouContrato">
+			<column name="gerouContrato" default="false"/>
+		</property>
+		
+		<property name="cargoProposta" />
+		<property name="terceirizadoEmpresa" />
+		<property name="terceirizadoFornecedor">
+			<column name="terceirizadoFornecedor" default="true"/>
+		</property>
+
+		<property name="telefoneProposta" />
+		<property name="observacoesCliente" type="string">
+			<column name="observacoesCliente" sql-type="text" />
+		</property>
+		<property name="observacoesFaturamento" type="string">
+			<column name="observacoesFaturamento" sql-type="text" />
+		</property>
+		
+		<property name="subtotalTerceirizadoEmpresa" />
+		<property name="subtotalTerceirizadoForn" />
+		
+		<property name="observacoes" type="string">
+			<column name="observacoes" sql-type="text" />
+		</property>		
+		<property name="observacoesFinanceiras" type="string">
+			<column name="observacoesFinanceiras" sql-type="text" />
+		</property>	
+		<property name="detalhesEvento" type="string">
+			<column name="detalhesEvento" sql-type="text" />
+		</property>
+		<property name="contatoEvento" />
+		<property name="telefoneContatoEvento" />
+			
+		<property name="dataCadastro" />
+		<property name="dataAprovacao"  />
+		<property name="condicoesPagamento"  />
+		<property name="confirmacaoFaturamento"  />
+		<property name="desconto" />
+		
+		<property name="dataInicio" type="date" />
+		<property name="dataFim" type="date"/>
+		<property name="preco" />
+		<property name="precoTerceirizado" />
+		<property name="planilha" type="string">
+			<column name="planilha" sql-type="text" />		
+		</property>
+		<property name="deletado" />
+		<property name="status" 
+			not-null="true"
+		 />
+		<property name="nomeEvento" />
+		<property name="dataMontagem" type="date"/>
+		<property name="dataHoraDesmontagem" />
+		<property name="formaPagamento" />
+		
+		<property name="horaInicio" type="time" />
+		<property name="horaFim" type="time" />
+		<property name="horaMontagem" type="time" />
+
+		<many-to-one name="local" class="LocalEvento" cascade="all" />
+		<many-to-one name="cliente" class="Cliente" fetch="join" lazy="false"/>
+		<many-to-one name="funcionario" class="Funcionario" fetch="join" lazy="false"/>
+		<many-to-one name="vendedorConjunto" class="Funcionario" />
+		<many-to-one name="funcionarioAprovacao" class="Funcionario" />
+		<many-to-one name="dadosAgencia" class="Fornecedor"/>
+		<many-to-one name="OSOriginal" class="OrdemServico"/>
+		
+		
+		<many-to-one name="responsavelEquipamento" class="Funcionario" />
+		<many-to-one name="unidade" class="Unidade" />
+		
+		<list name="ambientes" cascade="all-delete-orphan">
+			<key column="idOrdemServico" />
+			<list-index column="indiceAmbienteOS" />
+			<one-to-many class="AmbienteEvento" />
+		</list>
+
+		<list name="recursoSolicitado" cascade="all-delete-orphan">
+			<key column="idOrdemServico" />
+			<list-index column="indiceRecurso" />
+			<one-to-many class="RecursoSolicitado" />
+		</list>
+		
+		<list name="recursoTerceirizadoSolicitado" cascade="all-delete-orphan">
+			<key column="idOrdemServico" />
+			<list-index column="indiceRecursoTerceirizado" />
+			<one-to-many class="RecursoTerceirizadoSolicitado" />
+		</list>
+		
+		<list name="equipamentoEnviado" cascade="all">
+			<key column="idOrdemServico" />
+			<list-index column="indiceEquipamentoEnviado" />
+			<one-to-many class="EquipamentoEnviado" />
+		</list>
+
+
+		
+		<list name="pessoalAlocado" cascade="all-delete-orphan">
+			<key column="idOrdemServico" />
+			<list-index column="indicePessoalAlocado" />
+			<one-to-many class="PessoalAlocado" />
+		</list> 
+		
+		<list name="freelancerAlocado" cascade="all-delete-orphan">
+			<key column="idOrdemServico" />
+			<list-index column="indiceFreelancerAlocado" />
+			<one-to-many class="RegistroFreelancer" />
+		</list> 
+	</class>
+</hibernate-mapping>

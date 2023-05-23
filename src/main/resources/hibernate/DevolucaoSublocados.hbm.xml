@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="DevolucaoSublocados" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+		<property name="data" type="date"/>
+		<property name="deletado"/>
+		
+		<many-to-one name="funcionario" class="Funcionario" />
+		<many-to-one name="fornecedor" class="Fornecedor" />
+		
+		<list name="sublocados" >
+			<key column="idRegistroDevolucao" />
+			<list-index column="indiceEquipamentoDevolvido" />
+			<one-to-many class="EquipamentoSublocado" />
+		</list>
+	</class>
+</hibernate-mapping>

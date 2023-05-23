@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="equipamento" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c7f10d0d-25d9-4ae6-b49f-d67069bdce87">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="237"/>
+	<parameter name="id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="imagem" class="java.lang.Object"/>
+	<queryString>
+		<![CDATA[SELECT E.id, E.numeroserie, E.marca, E.modelo, E.garantia, E.lojaFornecedora, E.observacoes, E.data, G.nome AS grupo, R.nome AS recurso, R.precosugerido,
+	CASE e.status
+	WHEN 0 THEN 'Disponível'
+  	WHEN 1 THEN 'Locado'
+  	WHEN 2 THEN 'Manutençao Preventiva'
+  	WHEN 3 THEN 'Manutenção Corretiva'
+  	WHEN 4 THEN 'Inativo' END AS status
+FROM equipamento E LEFT JOIN equipamentosublocado ES
+		ON E.id = ES.equipamento_id
+	INNER JOIN grupo G
+		ON G.id = E.grupo
+	INNER JOIN recurso R
+		ON R.grupo = G.id
+WHERE ES.equipamento_id IS NULL
+	AND E.id = $P{id}
+	AND E.descricaoequipamento = R.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="numeroserie" class="java.lang.String"/>
+	<field name="marca" class="java.lang.String"/>
+	<field name="modelo" class="java.lang.String"/>
+	<field name="garantia" class="java.lang.String"/>
+	<field name="lojafornecedora" class="java.lang.String"/>
+	<field name="observacoes" class="java.lang.String"/>
+	<field name="data" class="java.sql.Timestamp"/>
+	<field name="grupo" class="java.lang.String"/>
+	<field name="recurso" class="java.lang.String"/>
+	<field name="precosugerido" class="java.lang.Float"/>
+	<field name="status" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement x="159" y="89" width="238" height="24" uuid="f653a11d-4de3-4afa-855f-30cade751c7e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Relatório de Equipamento]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="555" height="77" uuid="a6734ba3-52ca-4ff9-b45a-16d4b6e6f662"/>
+				<imageExpression><![CDATA[$P{imagem}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="137" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="18" height="15" uuid="9b8b93a3-7ddd-43ab-97c1-19685e3be363"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="48" width="60" height="15" uuid="7da92fdf-f016-48f8-b56d-371d585fd058"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subgrupo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="32" width="41" height="15" uuid="2c252167-d716-4304-8cd3-7f2d0f43cdce"/>
+				<textElement>
+					<font fontName="Arial" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Grupo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="84" height="16" uuid="f64c9bca-584d-4cba-bdbc-beefaa0f0bf4"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observações:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="16" width="43" height="15" uuid="1fef6286-869c-4024-a39f-28d23fadf437"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Preço:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="0" width="43" height="15" uuid="7b206736-3050-4bee-b7da-9a974cf0919d"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="16" width="52" height="15" uuid="75ce1746-1c14-4a87-9e12-cd2238c884fa"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº Série:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="237" y="32" width="39" height="15" uuid="0111fa25-13dd-4065-8166-76084f1738f6"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marca:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="237" y="48" width="49" height="15" uuid="829f2c84-9a0c-4350-bdbb-891f4fceb85b"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modelo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="237" y="64" width="49" height="15" uuid="35c55fc0-df84-49c0-ab34-d66799cdbab1"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Garantia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="73" height="15" uuid="b9524d6a-98c3-445c-b2b9-20a39ec913c9"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fornecedor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="18" y="0" width="196" height="15" uuid="e9f358aa-3b9c-4b4d-9fbf-6e4e770b0255"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="32" width="158" height="15" uuid="d813cbe9-39db-4673-8542-05de13202fcf"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="286" y="48" width="151" height="15" uuid="f0a43dc8-5b9e-4bf4-9cfb-502d14658ebc"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="286" y="64" width="151" height="15" uuid="1623cbbb-9669-49ec-8a15-8b0bf330ab47"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{garantia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="73" y="80" width="478" height="15" uuid="2463458f-ecfd-4cdc-973c-d6ddde3a2bda"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lojafornecedora}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="0" y="116" width="551" height="16" uuid="5bba08ff-66a0-4c72-9b67-517243a0b66f"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observacoes}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="73" y="64" width="141" height="15" uuid="b41a17a1-6d6b-4f36-a080-fcfdbf722b94"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="64" width="73" height="15" uuid="57317109-ef89-44ba-b528-6adff4abd45e"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Compra:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="52" y="16" width="162" height="15" uuid="cadf4548-a9d3-47a1-8a2a-9782274d98f4"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroserie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="32" width="173" height="15" uuid="579f0517-25e9-4f71-ae01-edcfe6fc098b"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grupo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="48" width="154" height="15" uuid="f194dbe7-42a5-4221-848d-ffe8c640577e"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recurso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="279" y="16" width="158" height="15" uuid="6848977a-c7e0-4e51-98dc-fcb373ecdc9c"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precosugerido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="0" width="158" height="15" uuid="d024a1d9-65b7-462e-adde-5d9e86c59563"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="40" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="451" y="13" width="100" height="20" uuid="1df2f58c-956f-4e96-accc-3b57131ee883"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="Receita" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="observacoes" />
+		<property name="dataCadastro" />
+		<property name="dataVencimento" />
+		<property name="dataPagamento" />
+		<property name="valorPago" />
+		<property name="descricao" />
+		<property name="valor" />
+		<property name="situacao" />
+		<property name="deletado" />
+		<property name="empenho" />
+		<property name="faturado" />
+		<property name="dataFaturado" />
+		<property name="opcaoPag" />
+		
+		<many-to-one name="ordemServico" class="OrdemServico" />
+		<many-to-one name="funcionarioCadastro" class="Funcionario" />
+
+	</class>
+</hibernate-mapping>

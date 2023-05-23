@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="Despesa" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="observacoes" />
+		<property name="dataCadastro" />
+		<property name="dataVencimento" />
+		<property name="dataPagamento" />
+		<property name="valorPago" />
+		<property name="descricao" />
+		<property name="valor" />
+		<property name="situacao" />
+		<property name="deletado" />
+		<property name="tipo" />
+		
+		<property name="comissao">
+			<column name="comissao" default="false" />
+		</property>		
+		
+		<property name="opcaoPag"  />
+		
+		<many-to-one name="centroCusto" class="CentroCusto" />
+		<many-to-one name="fontePagadora" class="FontePagadora" />
+		<many-to-one name="ordemServico" class="OrdemServico" />
+		<many-to-one name="empresa" class="Unidade" />
+		<many-to-one name="fornecedor" class="Fornecedor" />
+		<many-to-one name="funcionarioCadastro" class="Funcionario" />
+		<many-to-one name="freelancer" class="Freelancer" />
+
+	</class>
+</hibernate-mapping>

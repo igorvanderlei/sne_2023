@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="Cliente" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+
+		<property name="nome" />
+		<property name="tipo" />
+		<property name="cnpj" />
+		<property name="fone" />
+		<property name="contato" />
+		<property name="ramal" />
+		<property name="observacoes" type="string">
+			<column name="observacoes" sql-type="text" />
+		</property>
+		
+		<property name="celular" />
+		<property name="email" />
+		<property name="dataUltimaAlteracao" />
+		<property name="dataCadastro" />
+		<property name="deletado" />
+		<property name="inscricaoEstadual" />
+		<property name="fax" />
+		
+		<property name="status" 
+			not-null="true"
+		 />
+
+		<many-to-one name="dadosBancarios1" class="DadosBancarios" cascade="all"></many-to-one>
+		<many-to-one name="dadosBancarios2" class="DadosBancarios" cascade="all"></many-to-one>				
+		<many-to-one name="endereco" class="Endereco" cascade="all"/>
+		<many-to-one name="funcionario" class="Funcionario" />
+		<many-to-one name="unidade" class="Unidade" />
+
+	</class>
+</hibernate-mapping>

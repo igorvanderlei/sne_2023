@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="br.com.sne.sistema.bean">
+	<class name="Recolhimento" lazy="true">
+		<id name="id" >
+            <generator class="identity" />  
+		</id>
+		
+
+		<property name="veiculo" />
+		<property name="data" />
+		<property name="deletado" />
+	
+		<many-to-one name="responsavel" class="Funcionario" />
+	
+		
+		<list name="equipamentosBipados" table="equipamentoEnviadoRecolhimento">
+			<key column="idRecolhimento" />
+			<list-index column="indiceEquipamentoEnviado" />
+			<many-to-many class="EquipamentoEnviado" />
+		</list>
+
+		<list name="ordemServico" table="ordemServicoRecolhimento">
+			<key column="idRecolhimento" />
+			<list-index column="indiceOrdemServico" />
+			<many-to-many class="OrdemServico" />
+		</list>
+		
+	</class>
+</hibernate-mapping>

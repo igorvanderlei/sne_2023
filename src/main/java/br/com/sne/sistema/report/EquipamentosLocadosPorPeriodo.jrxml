@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EquipamentosLocadosPorPeriodo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a4b86ec-b029-4593-95a0-ca942a50ab52">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="27"/>
+	<parameter name="data_inicial" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="data_final" class="java.util.Date"/>
+	<parameter name="grupo_inicial" class="java.lang.Integer"/>
+	<parameter name="grupo_final" class="java.lang.Integer"/>
+	<parameter name="imagem" class="java.lang.Object"/>
+	<queryString>
+		<![CDATA[SELECT  g.nome AS grupo, r.nome AS recurso, g.codigo AS codigogrupo,
+	SUM((CAST(ev.datadevolucao AS DATE) - CAST(ev.datasaida AS DATE))+1) AS diarias
+FROM equipamentoenviado ev
+	INNER JOIN equipamento e
+		ON ev.equipamento = e.id
+	INNER JOIN grupo g
+		ON g.id = e.grupo
+	INNER JOIN recurso r
+		ON r.grupo = g.id
+	INNER JOIN descricaoequipamento d
+		ON d.idrecurso = r.id
+	INNER JOIN ordemservico os
+		ON os.id = ev.idordemservico
+	LEFT JOIN equipamentosublocado es
+		ON es.equipamento_id = e.id
+WHERE e.descricaoequipamento = r.id
+	AND os.status = 3
+	AND os.deletado = 'f'
+	AND ev.datadevolucao IS NOT NULL
+	AND es.equipamento_id IS NULL
+	AND CAST(os.dataInicio AS DATE) BETWEEN CAST($P{data_inicial} AS DATE) AND CAST($P{data_final} AS DATE)
+	AND CAST(g.codigo as int) BETWEEN $P{grupo_inicial} AND $P{grupo_final}
+GROUP BY
+	g.nome, r.nome, g.codigo
+ORDER BY
+	diarias DESC]]>
+	</queryString>
+	<field name="grupo" class="java.lang.String"/>
+	<field name="recurso" class="java.lang.String"/>
+	<field name="codigogrupo" class="java.lang.String"/>
+	<field name="diarias" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="137" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="102" width="553" height="27" uuid="d5fb8754-1c18-4dac-861e-24036d69fbf4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Demonstrativo de Locações de Equipamentos por Período]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="555" height="77" uuid="9121eb18-d11a-4604-ab3c-3ffafc188455"/>
+				<imageExpression><![CDATA[$P{imagem}]]></imageExpression>
+			</image>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="442" y="80" width="108" height="20" uuid="ca4c7b22-941c-49d5-92f6-62e7e3934176"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="407" y="80" width="35" height="20" uuid="cabf19ba-b40d-4caf-8e3b-dfaabb56fba4"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Recife, ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="93" splitType="Stretch">
+			<line>
+				<reportElement x="54" y="88" width="443" height="1" uuid="4a876185-cdf5-41dc-902a-c21bf1d82249"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="34" width="124" height="20" uuid="39813bab-ec42-4581-9c92-c26a2d4f9481"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Intervalo de Grupo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="10" width="116" height="20" uuid="c1f1a3a3-3e99-413c-8256-a6dc1f273e6c"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Intervalo de Data:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="59" y="68" width="166" height="20" uuid="3bb6c686-a713-4ed3-8ffb-ea9ea05732a4"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grupo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="225" y="69" width="165" height="20" uuid="be592d39-0d58-4113-aab2-5b1dc2452974"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Equipamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="404" y="69" width="83" height="20" uuid="3234359a-6c1d-4e7e-9e0e-918bc71e4c33"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diárias]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="119" y="10" width="72" height="20" uuid="3ecd6605-3d8f-4e62-a6de-1eed1b220661"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{data_inicial}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="212" y="10" width="100" height="20" uuid="8f3d0b8f-d806-4870-8e20-9940fb39cfe9"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{data_final}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="190" y="10" width="11" height="20" uuid="5ff98124-a87d-4b67-93c7-e0d6be69f193"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="34" width="11" height="20" uuid="db35813e-d695-4d87-b7e0-b4ffcd6918e8"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A]]></text>
+			</staticText>
+			<textField pattern="000">
+				<reportElement x="129" y="34" width="27" height="20" uuid="038c27c2-7bca-4573-b26c-369bc39c7432"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{grupo_inicial}]]></textFieldExpression>
+			</textField>
+			<textField pattern="000">
+				<reportElement x="167" y="34" width="25" height="20" uuid="80ff2d9d-b313-41d0-a324-55add4bdcd02"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{grupo_final}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<line>
+				<reportElement x="54" y="15" width="443" height="1" uuid="d509dcf6-3b10-4554-bd5b-ab84a1be1652"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="59" y="1" width="166" height="15" uuid="990ad54f-1f30-4987-95ff-9be6e259e645"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grupo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="225" y="0" width="165" height="15" uuid="54cb159b-18a2-44d6-9f81-901cd7a23e3b"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recurso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="404" y="0" width="83" height="15" uuid="fb6a83bc-1ce4-4218-8de2-bf1607427f17"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{diarias}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="470" y="24" width="80" height="20" uuid="0063e0ad-1795-4706-b38f-955a0b51dff7"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
