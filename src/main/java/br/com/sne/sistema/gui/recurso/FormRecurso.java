@@ -163,7 +163,8 @@ public class FormRecurso extends DefaultForm<Recurso, RecursoTableModel> {
 	public Recurso newElement() {
 		Recurso rec = new Recurso();
 		String recTipoRec = fieldTipoRecurso.getText();
-		if(recTipoRec.equalsIgnoreCase(TipoRecurso.EQUIPAMENTO.toString())== true){
+		if(recTipoRec.equalsIgnoreCase(TipoRecurso.EQUIPAMENTO.toString())== true || 
+		   recTipoRec.equalsIgnoreCase(TipoRecurso.CENOGRAFIA.toString())== true	){
 			rec = new DescricaoEquipamento();
 		} else if(recTipoRec.equalsIgnoreCase(TipoRecurso.EQUIPE_TECNICA.toString())== true){
 			rec = new Funcao();

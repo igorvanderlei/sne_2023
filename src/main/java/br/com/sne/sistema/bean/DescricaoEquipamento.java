@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class DescricaoEquipamento extends Recurso implements Serializable{
 	private static final long serialVersionUID = 1L;
-	public DescricaoEquipamento() {
+		public DescricaoEquipamento() {
 	}
 	
 	public int compareTo(DescricaoEquipamento grp) {

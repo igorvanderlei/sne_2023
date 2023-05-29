@@ -550,6 +550,7 @@ public class FormEquipamento extends DefaultForm<Equipamento, EquipamentoTableMo
 			test = false;
 			error += "\nSelecione o Subgrupo do equipamento";
 		}
+		
 		if(!(fieldRecurso.getSelectedItem() instanceof DescricaoEquipamento)) {
 			test = false;
 			error += "\nSelecione um Subgrupo do tipo Físico";
