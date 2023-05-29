@@ -463,6 +463,8 @@ public class FormOrcamento extends DefaultForm<Orcamento, OrcamentoTableModel> i
 			
 			int resp = JOptionPane.showConfirmDialog(null,"Deseja imprimir o Orçamento ?","Confirmação" ,JOptionPane.OK_CANCEL_OPTION);
 			if( resp == JOptionPane.OK_OPTION) {
+				Facade.getInstance().commit();
+				Facade.getInstance().beginTransaction();
 				print(orc);
 				s = false;
 			} else {
@@ -3414,6 +3416,7 @@ public class FormOrcamento extends DefaultForm<Orcamento, OrcamentoTableModel> i
 			if((c.getSituacao() == SituacaoOrcamento.FECHADO && fechado) ||
 			(c.getSituacao() == SituacaoOrcamento.ABERTO && aberto)	|| 
 			(c.getSituacao() == SituacaoOrcamento.CANCELADO && cancelado)) {
+				c.getVendedorConjunto();
 				resp.add(c);
 			}
 		}

@@ -32,6 +32,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 
+import br.com.sne.sistema.facade.Facade;
 import br.com.sne.sistema.gui.util.components.SizedTableModel;
 
 public abstract class DefaultGarbageForm<T, TModel extends SizedTableModel<T>> extends JInternalFrame {
@@ -182,6 +183,7 @@ public abstract class DefaultGarbageForm<T, TModel extends SizedTableModel<T>> e
 	}
 	
 	protected void carregarTabela() {
+		Facade.getInstance().beginTransaction();
 		List<T> listElements = listAll();
 		jTextFielBusca.setText("");
 	
@@ -192,7 +194,7 @@ public abstract class DefaultGarbageForm<T, TModel extends SizedTableModel<T>> e
 			modelo.addElement(t);
 		}
 		jTable.updateUI();
-		System.out.println("Carregou");
+		Facade.getInstance().commit();
 	}
 	
 	private void carregarComboListar(){

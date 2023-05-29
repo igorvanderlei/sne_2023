@@ -315,7 +315,7 @@ public abstract class DefaultForm<T, TModel extends SizedTableModel<T>> extends 
 	}
 	
 	protected void carregarTabela(List<T> listElements) {
-		jTextFielBusca.setText("");
+		//jTextFielBusca.setText("");
 		
 		@SuppressWarnings("unchecked")
 		TModel modelo = (TModel) jTable.getModel();
@@ -554,10 +554,12 @@ public abstract class DefaultForm<T, TModel extends SizedTableModel<T>> extends 
 		if(validateFormInsert()) {
 			T current = newElement();
 			loadInputFields(current);
+			Facade.getInstance().beginTransaction();
 			if(save(current)) {
 				JOptionPane.showMessageDialog(null,"Registro cadastrado com sucesso!");
 				clear();
 			}
+			Facade.getInstance().commit();
 		}
 	}
 	
@@ -568,10 +570,12 @@ public abstract class DefaultForm<T, TModel extends SizedTableModel<T>> extends 
 			T selected = (T) jTable.getValueAt(linha,tableModel.getObjectIndex());
 			int resp = JOptionPane.showConfirmDialog(null,"Tem certeza que deseja excluir o registro Selecionado","Escolha uma opção" ,JOptionPane.OK_CANCEL_OPTION);
 			if(resp == JOptionPane.OK_OPTION){
+				Facade.getInstance().beginTransaction();
 				if(remove(selected) ) {
 					JOptionPane.showMessageDialog(null,"Registro removido com sucesso!");
 					clear();
 				}
+				Facade.getInstance().commit();
 			}
 		
 		     } else {
@@ -588,6 +592,7 @@ public abstract class DefaultForm<T, TModel extends SizedTableModel<T>> extends 
 				loadInputFields(current);
 				int resp = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja Realizar Alteracoes no Registro Selecionado","Escolha uma opção" ,JOptionPane.OK_CANCEL_OPTION);
 				if(resp == JOptionPane.OK_OPTION)    {
+					Facade.getInstance().beginTransaction();
 					if(update(current)) {
 						JOptionPane.showMessageDialog(null,"Registro atualizado com sucesso!");
 						clear();
@@ -595,6 +600,7 @@ public abstract class DefaultForm<T, TModel extends SizedTableModel<T>> extends 
 						TModel modelo = (TModel) jTable.getModel();
 						modelo.removeAllElements();
 					}
+					Facade.getInstance().commit();
 				}
 			}
 		} else {

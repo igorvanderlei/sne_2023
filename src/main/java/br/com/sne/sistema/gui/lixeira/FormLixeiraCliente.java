@@ -15,6 +15,7 @@ public class FormLixeiraCliente extends DefaultGarbageForm<Cliente, ClienteTable
 	}
 
 	public List<Cliente> listAll() {
+		
 		return Facade.getInstance().listarClientesExcluidos();
 	}
 
