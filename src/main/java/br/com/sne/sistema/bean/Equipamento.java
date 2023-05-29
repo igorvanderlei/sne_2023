@@ -27,8 +27,10 @@ public class Equipamento implements Serializable{
 	private Unidade unidade;
 	private Date data;
 	private String serialEquipamento;
+	private String patrimonio;
+	private boolean deletado;		
 	
-	private boolean deletado;	 
+ 
 	public boolean isDeletado() {
 		return deletado;
 	}
@@ -53,12 +55,13 @@ public class Equipamento implements Serializable{
 		this.grupo = grupo;
 	}
 
-	public Equipamento(String numeroSerie, String marca, String modelo, DescricaoEquipamento descricaoEquipamento) {
+	public Equipamento(String numeroSerie, String marca, String modelo, DescricaoEquipamento descricaoEquipamento, String patrimonio) {
 		this.numeroSerie = numeroSerie;
 		this.marca = marca;
 		this.modelo = modelo;
 		this.descricaoEquipamento = descricaoEquipamento;
 		this.status = StatusEquipamento.DISPONIVEL;
+		this.patrimonio = patrimonio;
 	}
 
 	public String getMarca() {
@@ -172,6 +175,13 @@ public class Equipamento implements Serializable{
 		this.serialEquipamento = serialEquipamento;
 	}
 	
+	public String getPatrimonio() {
+		return patrimonio;
+	}
+
+	public void setPatrimonio(String patrimonio) {
+		this.patrimonio = patrimonio;
+	}
 	
 	
 }

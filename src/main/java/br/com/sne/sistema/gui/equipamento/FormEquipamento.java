@@ -65,6 +65,7 @@ public class FormEquipamento extends DefaultForm<Equipamento, EquipamentoTableMo
 	private JComboBox fieldRecurso;
 	private JComboBox fieldStatus;
 	private JTextField fieldNome;
+	private JTextField fieldPatrimonio;
 	private JTextField fieldDescricao;
 	private JTextField fieldSerialEquipamento;
 	private JMoedaRealTextField fieldPreco;
@@ -161,6 +162,8 @@ public class FormEquipamento extends DefaultForm<Equipamento, EquipamentoTableMo
 
 	public void createInputFields() {
 		fieldID = new JTextField();
+		fieldPatrimonio = new JTextField();
+		
 		fieldStatus = new JComboBox();
 		fieldStatus.setEnabled(false);
 		carregarFieldStatus();
@@ -197,7 +200,8 @@ public class FormEquipamento extends DefaultForm<Equipamento, EquipamentoTableMo
 		this.addInputField(new TitledPanel("Marca", fieldMarca), new RestricaoLayout(2, 3, 1, true, false));
 		this.addInputField(new TitledPanel("Modelo", fieldModelo), new RestricaoLayout(2, 4, 1, true, false));
 		
-		this.addInputField(new TitledPanel("Número de Série", fieldSerialEquipamento), new RestricaoLayout(3, 0, 2, true, false));
+		this.addInputField(new TitledPanel("Patrimônio", fieldPatrimonio), new RestricaoLayout(3, 0, false, false));
+		this.addInputField(new TitledPanel("Número de Série", fieldSerialEquipamento), new RestricaoLayout(3, 1, 1, true, false));
 		
 		this.addInputField(new TitledPanel("Fornecedor", fieldFornecedor), new RestricaoLayout(3, 2, 2, true, false));
 		this.addInputField(new TitledPanel("Garantia", fieldGarantia), new RestricaoLayout(3, 4,  1, true, false));
@@ -464,6 +468,7 @@ public class FormEquipamento extends DefaultForm<Equipamento, EquipamentoTableMo
 		equipamento.setGarantia(garantia);
 		equipamento.setObservacoes(observacoes);
 		equipamento.setData(fieldData.getDate());
+		equipamento.setPatrimonio(fieldPatrimonio.getText());
 		
 	}
 	
@@ -487,6 +492,7 @@ public class FormEquipamento extends DefaultForm<Equipamento, EquipamentoTableMo
 		fieldFornecedor.setText("");
 		fieldGarantia.setText("");
 		fieldObservacoes.setText("");
+		fieldPatrimonio.setText("");
 		equip = null;
 	}
 
@@ -516,6 +522,8 @@ public class FormEquipamento extends DefaultForm<Equipamento, EquipamentoTableMo
 		fieldObservacoes.setText(rec.getObservacoes());
 		fieldData.setDate(rec.getData());
 		
+		fieldPatrimonio.setText(rec.getPatrimonio());
+		
 		equip = rec;
 	}
 
@@ -523,6 +531,12 @@ public class FormEquipamento extends DefaultForm<Equipamento, EquipamentoTableMo
 	protected boolean validateFormInsert() {
 		boolean test = true;
 		String error = "ATENÇÃO:";
+		
+	/*	if(fieldPatrimonio.getText().length() < 3) {
+			test = false;
+			error += "\nDigite pelo menos 3 caracteres para o patrimônio";
+		}*/
+		
 		if(fieldUnidade.getSelectedIndex() == 0) {
 			test = false;
 			error += "\nSelecione a Unidade do equipamento";

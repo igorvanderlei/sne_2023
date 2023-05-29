@@ -22,6 +22,8 @@
 		 />
 		 <property name="data" />
 		 <property name="deletado" />
+		 
+		 <property name="patrimonio" />
 
 		<many-to-one name="descricaoEquipamento" class="DescricaoEquipamento" lazy="false" />
 		<many-to-one name="grupo" class="Grupo" />
