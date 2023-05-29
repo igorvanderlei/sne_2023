@@ -36,4 +36,11 @@ public class DialogSearchDadosBancarios extends DefaultFilterSearchDialog<DadosB
 		
 		return lista;
 	}
+
+	@Override
+	public DadosBancarios init(DadosBancarios value) {
+		return value;
+	}
+	
+	
 }

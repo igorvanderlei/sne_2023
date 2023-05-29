@@ -54,7 +54,8 @@ public class DialogSearchOS extends DefaultFilterSearchDialog<OrdemServico, Orde
 		os.getCliente().getCnpj();
 		
 		os.getLocal().getLocal();
-				
+		os.getVendedorConjunto();
+		
 		Facade.getInstance().commit();
 		// TODO Auto-generated method stub
 		return os;

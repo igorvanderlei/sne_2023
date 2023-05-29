@@ -7,7 +7,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import br.com.sne.sistema.auth.AccessManager.permission;
+import br.com.sne.sistema.bean.AmbienteEvento;
 import br.com.sne.sistema.bean.Orcamento;
+import br.com.sne.sistema.bean.OrdemServico;
+import br.com.sne.sistema.bean.RecursoSolicitado;
+import br.com.sne.sistema.bean.RecursoTerceirizadoSolicitado;
 import br.com.sne.sistema.facade.Facade;
 import br.com.sne.sistema.gui.orcamento.OrcamentoTableModel;
 
@@ -37,5 +41,25 @@ public class DialogSearchOrcamento extends DefaultFilterSearchDialog<Orcamento, 
 		
 		return lista;
 	}
+
+	@Override
+	public Orcamento init(Orcamento value) {
+		Facade.getInstance().beginTransaction();
+		Orcamento orc = Facade.getInstance().carregarOrcamento(value.getId());
+		for(AmbienteEvento a : orc.getAmbientes())
+			a.getNome();
+		for(RecursoSolicitado rec : orc.getRecursoSolicitado())
+			rec.getDescricao();
+		for(RecursoTerceirizadoSolicitado rec : orc.getRecursoTerceirizadoSolicitado())
+			rec.getDescricao();
+		orc.getCliente().getCnpj();
+		
+		orc.getLocal().getLocal();
+				
+		Facade.getInstance().commit();
+		return orc;
+	}
+	
+	
 	
 }

@@ -6,7 +6,10 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import br.com.sne.sistema.bean.AmbienteEvento;
 import br.com.sne.sistema.bean.OrdemServico;
+import br.com.sne.sistema.bean.RecursoSolicitado;
+import br.com.sne.sistema.bean.RecursoTerceirizadoSolicitado;
 import br.com.sne.sistema.facade.Facade;
 import br.com.sne.sistema.gui.equipamentoenviado.LocalizarOrdemServicoTableModel;
 import br.com.sne.sistema.gui.os.OrdemServicoTableModel;
@@ -38,5 +41,25 @@ public class DialogSearchOSExtrasAprovadas extends DefaultFilterSearchDialog<Ord
 		}
 		
 		return listaVerdadeira;
+	}
+
+	@Override
+	public OrdemServico init(OrdemServico value) {
+		Facade.getInstance().beginTransaction();
+		OrdemServico os = Facade.getInstance().carregarOrdemServico(value.getId());
+		for(AmbienteEvento a : os.getAmbientes())
+			a.getNome();
+		for(RecursoSolicitado rec : os.getRecursoSolicitado())
+			rec.getDescricao();
+		for(RecursoTerceirizadoSolicitado rec : os.getRecursoTerceirizadoSolicitado())
+			rec.getDescricao();
+		os.getCliente().getCnpj();
+		
+		os.getLocal().getLocal();
+		os.getVendedorConjunto();
+		
+		Facade.getInstance().commit();
+		// TODO Auto-generated method stub
+		return os;
 	}
 }

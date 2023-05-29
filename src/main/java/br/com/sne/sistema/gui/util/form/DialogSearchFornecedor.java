@@ -34,4 +34,17 @@ public class DialogSearchFornecedor extends DefaultFilterSearchDialog<Fornecedor
 		
 		return lista;
 	}
+
+	@Override
+	public Fornecedor init(Fornecedor value) {
+		Facade.getInstance().beginTransaction();
+		Fornecedor f = Facade.getInstance().carregarFornecedor(value.getId());
+		f.getDadosBancarios1();
+		f.getDadosBancarios2();
+		Facade.getInstance().commit();
+		
+		return f;
+	}
+	
+	
 }

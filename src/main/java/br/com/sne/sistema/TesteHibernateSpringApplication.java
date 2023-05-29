@@ -18,9 +18,9 @@ import br.com.sne.sistema.bean.enumerations.BusinessEnumerations.TipoRecurso;
 import br.com.sne.sistema.facade.Facade;
 import br.com.sne.sistema.gui.main.TelaPrincipal;
 
-import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+
+
 
 @SpringBootApplication
 public class TesteHibernateSpringApplication {

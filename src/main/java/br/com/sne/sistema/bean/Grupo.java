@@ -8,6 +8,7 @@ public class Grupo implements Comparable<Grupo>{
 	private String nome;
 	private String observacoes;
 	private String codigo;
+	private boolean deletado;
 	
 	private TipoRecurso tipoRecurso;
 	
@@ -18,7 +19,7 @@ public class Grupo implements Comparable<Grupo>{
 	public void setTipoRecurso(TipoRecurso tipoRecurso) {
 		this.tipoRecurso = tipoRecurso;
 	}
-	private boolean deletado;	 
+	 
 	public boolean isDeletado() {
 		return deletado;
 	}
