@@ -115,15 +115,15 @@ public class FormRecursoTerceirizado extends DefaultForm<RecursoTerceirizado, Re
 		fieldID.setEditable(false);
 		fieldCalcularDiarias.setSelected(true);
 		
-		this.addInputField(new TitledPanel("Id", fieldID), new RestricaoLayout(0, 0, false, false));
+		this.addInputField(new TitledPanel("*Id", fieldID), new RestricaoLayout(0, 0, false, false));
 		this.addInputField(new TitledPanel("Fornecedor", fieldFornecedorTerceirizado), new RestricaoLayout(0, 1,1, true, false));
 		
-		this.addInputField(new TitledPanel("Grupo", fieldGrupo), new RestricaoLayout(0, 2, 1, true, false));
+		this.addInputField(new TitledPanel("*Grupo", fieldGrupo), new RestricaoLayout(0, 2, 1, true, false));
 		this.addInputField(new TitledPanel("Calcular Diárias", fieldCalcularDiarias), new RestricaoLayout(0, 3, 1, true, false));
 		
-		this.addInputField(new TitledPanel("Código", fieldCodigo), new RestricaoLayout(0, 4, true, false));
+		this.addInputField(new TitledPanel("*Código", fieldCodigo), new RestricaoLayout(0, 4, true, false));
 		
-		this.addInputField(new TitledPanel("Nome", fieldNome), new RestricaoLayout(0,5, 2, true, false));
+		this.addInputField(new TitledPanel("*Nome", fieldNome), new RestricaoLayout(0,5, 2, true, false));
 		
 		this.addInputField(new TitledPanel("Descrição", fieldDescricao), new RestricaoLayout(1,0,3, true, false));
 		

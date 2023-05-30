@@ -238,8 +238,9 @@ public class TelaPrincipal extends JFrame implements InterfaceTelaPrincipal {
 		initialize();
 	//	carregarTokens();
 		Facade.getInstance().setTelaPrincipal(this);
-		configurarPermissoesSegurancaBotoes();
-		desabilitaBotoes();
+		configurarPermissoesSegurancaBotoes(); 
+	    desabilitaBotoes();
+		
 	}
 	/*	
 	private void carregarTokens() {

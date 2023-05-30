@@ -92,14 +92,14 @@ public class FormUsuario extends DefaultForm<Usuario, UsuarioTableModel> {
 		scrollObservacoes.setViewportView(fieldObservacoes);
 		fieldID.setEditable(false);
 
-		this.addInputField(new TitledPanel("Id", fieldID), new RestricaoLayout(0, 0, false, false));
-		this.addInputField(new TitledPanel("Funcionário", fieldFuncionario), new RestricaoLayout(0,1,1, true, false));
-		this.addInputField(new TitledPanel("Unidade", fieldUnidade), new RestricaoLayout(0,2,1, true, false));
-		this.addInputField(new TitledPanel("Tipo de Usuário", fieldTipoUsuario), new RestricaoLayout(0,3,1, true, false));
+		this.addInputField(new TitledPanel("*Id", fieldID), new RestricaoLayout(0, 0, false, false));
+		this.addInputField(new TitledPanel("*Funcionário", fieldFuncionario), new RestricaoLayout(0,1,1, true, false));
+		this.addInputField(new TitledPanel("*Unidade", fieldUnidade), new RestricaoLayout(0,2,1, true, false));
+		this.addInputField(new TitledPanel("*Tipo de Usuário", fieldTipoUsuario), new RestricaoLayout(0,3,1, true, false));
 		
-		this.addInputField(new TitledPanel("Nome do usuário", fieldNome), new RestricaoLayout(1,0,2, true, false));
-		this.addInputField(new TitledPanel("Senha", fieldPassword), new RestricaoLayout(1,2,1, true, false));
-		this.addInputField(new TitledPanel("Confirmação de Senha", fieldPasswordConfirm), new RestricaoLayout(1,3,1, true, false));
+		this.addInputField(new TitledPanel("*Nome do usuário", fieldNome), new RestricaoLayout(1,0,2, true, false));
+		this.addInputField(new TitledPanel("*Senha", fieldPassword), new RestricaoLayout(1,2,1, true, false));
+		this.addInputField(new TitledPanel("*Confirmação de Senha", fieldPasswordConfirm), new RestricaoLayout(1,3,1, true, false));
 		
 		this.addInputField(new TitledPanel("Observações", scrollObservacoes), new RestricaoLayout(2, 0, 4, 1, true, true));
 	}

@@ -76,7 +76,7 @@ public class FormTipoUsuario extends DefaultForm<TipoUsuario, TipoUsuarioTableMo
 		fieldID.setEditable(false);
 		
 		
-		this.addInputField(new TitledPanel("Id", fieldID), new RestricaoLayout(0, 0, false, false));
+		this.addInputField(new TitledPanel("*Id", fieldID), new RestricaoLayout(0, 0, false, false));
 		this.addInputField(new TitledPanel("Nome", fieldNome), new RestricaoLayout(0,1, true, false));
 		this.addInputField(new TitledPanel("Observações", scrollObservacoes), new RestricaoLayout(1, 0, 2, 1, true, true));
 		carregarTabelaPermissoes();
