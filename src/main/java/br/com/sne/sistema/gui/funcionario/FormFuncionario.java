@@ -143,10 +143,10 @@ public class FormFuncionario extends DefaultForm<Funcionario, FuncionarioTableMo
 		endereco.add(new TitledPanel("Logradouro", fieldEnderecoLogradouro), new RestricaoLayout(0,0, 2, true, false));
 		endereco.add(new TitledPanel("Numero", fieldEnderecoNumero), new RestricaoLayout(0,2, true, false));
 		endereco.add(new TitledPanel("Complemento", fieldEnderecoComplemento), new RestricaoLayout(0,3, 1, true, false));
-		endereco.add(new TitledPanel("CEP", fieldEnderecoCEP), new RestricaoLayout(0,4, 1, true, false));
+		endereco.add(new TitledPanel("*CEP", fieldEnderecoCEP), new RestricaoLayout(0,4, 1, true, false));
 		endereco.add(new TitledPanel("Bairro", fieldEnderecoBairro), new RestricaoLayout(1,0, 1, true, false));
-		endereco.add(new TitledPanel("Cidade", fieldEnderecoCidade), new RestricaoLayout(1,1, 1, true, false));
-		endereco.add(new TitledPanel("Estado", fieldEnderecoEstado), new RestricaoLayout(1,2, 1, true, false));
+		endereco.add(new TitledPanel("*Cidade", fieldEnderecoCidade), new RestricaoLayout(1,1, 1, true, false));
+		endereco.add(new TitledPanel("*Estado", fieldEnderecoEstado), new RestricaoLayout(1,2, 1, true, false));
 		endereco.add(new TitledPanel("Ponto de Referência", fieldEnderecoReferencia), new RestricaoLayout(1,3, 2, true, false));
 
 		return endereco;

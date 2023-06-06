@@ -187,15 +187,15 @@ public class FormEquipamento extends DefaultForm<Equipamento, EquipamentoTableMo
 		scrollObservacoes.setViewportView(fieldObservacoes);
 		fieldID.setEditable(false);
 		
-		this.addInputField(new TitledPanel("Id", fieldID), new RestricaoLayout(0, 0, false, false));
-		this.addInputField(new TitledPanel("Unidade", getFieldUnidade()), new RestricaoLayout(0, 1, true, false));
-		this.addInputField(new TitledPanel("Grupo", getFieldGrupo()), new RestricaoLayout(0, 2,  true, false));
-		this.addInputField(new TitledPanel("Subgrupo", getFieldRecurso()), new RestricaoLayout(0, 3, true, false));
-		this.addInputField(new TitledPanel("Status", fieldStatus), new RestricaoLayout(0, 4, true, false));
+		this.addInputField(new TitledPanel("*Id", fieldID), new RestricaoLayout(0, 0, false, false));
+		this.addInputField(new TitledPanel("*Unidade", getFieldUnidade()), new RestricaoLayout(0, 1, true, false));
+		this.addInputField(new TitledPanel("*Grupo", getFieldGrupo()), new RestricaoLayout(0, 2,  true, false));
+		this.addInputField(new TitledPanel("*Subgrupo", getFieldRecurso()), new RestricaoLayout(0, 3, true, false));
+		this.addInputField(new TitledPanel("*Status", fieldStatus), new RestricaoLayout(0, 4, true, false));
 		this.addInputField(new TitledPanel("Nome", fieldNome), new RestricaoLayout(1, 0, 3, true, false));
 		this.addInputField(new TitledPanel("Descrição", fieldDescricao), new RestricaoLayout(1, 3, 1, true, false));
 		this.addInputField(new TitledPanel("Preço", fieldPreco), new RestricaoLayout(1, 4, 1, true, false));
-		this.addInputField(new TitledPanel("Código", getPainelFieldCodigo()), new RestricaoLayout(2, 0, 2, true, false));
+		this.addInputField(new TitledPanel("*Código", getPainelFieldCodigo()), new RestricaoLayout(2, 0, 2, true, false));
 		this.addInputField(new TitledPanel("Data de Compra", fieldData), new RestricaoLayout(2, 2, 1, true, false));
 		this.addInputField(new TitledPanel("Marca", fieldMarca), new RestricaoLayout(2, 3, 1, true, false));
 		this.addInputField(new TitledPanel("Modelo", fieldModelo), new RestricaoLayout(2, 4, 1, true, false));

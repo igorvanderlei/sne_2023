@@ -126,13 +126,13 @@ public class FormUnidade extends DefaultForm<Unidade, UnidadeTableModel> {
 
 		fieldID.setEditable(false);
 
-		this.addInputField(new TitledPanel("Id", fieldID), new RestricaoLayout(0, 0, false, false));
-		this.addInputField(new TitledPanel("Código", fieldCodigo), new RestricaoLayout(0, 1, false, false));
+		this.addInputField(new TitledPanel("*Id", fieldID), new RestricaoLayout(0, 0, false, false));
+		this.addInputField(new TitledPanel("*Código", fieldCodigo), new RestricaoLayout(0, 1, false, false));
 		this.addInputField(new TitledPanel("Nome", fieldNome), new RestricaoLayout(0,2,3, true, false));
 
 		this.addInputField(new TitledPanel("Razão Social", fieldRazaoSocial), new RestricaoLayout(1,0,3, true, false));
-		this.addInputField(new TitledPanel("Cnpj", fieldCnpj), new RestricaoLayout(1,3,1, true, false));
-		this.addInputField(new TitledPanel("Inscrição Estadual", fieldInscricaoEsdadual), new RestricaoLayout(1,4,1, true, false));
+		this.addInputField(new TitledPanel("*Cnpj", fieldCnpj), new RestricaoLayout(1,3,1, true, false));
+		this.addInputField(new TitledPanel("*Inscrição Estadual", fieldInscricaoEsdadual), new RestricaoLayout(1,4,1, true, false));
 
 		this.addInputField(getPanelEndereco(), new RestricaoLayout(2, 0, 5, true, false));
 		this.addInputField(getPanelImagens(), new RestricaoLayout(3, 0, 5, 1, true, true));
